@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link href="/static/css/configuration.css" rel="stylesheet" type="text/css">
+<link href="/static/css/index.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/static/js/socket.io.js"></script>
+<script type="text/javascript" src="/static/js/configuration.js" ipaddr="{{ipaddr}}" port="{{port}}"></script>
+
+{% endblock %}
+
+{% block content%}
+<main>
+	<h2>Parámetros de seguridad del sistema</h2>
+	<form class="form-field"  action="" method="post" id="parameters_form">
+	{{ form.hidden_tag() }}
+	<fieldset>
+		<legend>Limites del sistema</legend>
+		<div class="form-table">
+			<label>Rango de temperatura:</label>
+			<div class="form-row">
+				<div class="form-col">
+					<input type="number" id="lo-temperature" name="{{form.loTemp.name}}" placeholder="lim. actual = {{setting['threshold']['temperature']['lo']}}">			
+					<label class="input-label">Limite inferior</label>
+				</div>
+				<div class="form-col">
+					<input type="number" id="hi-temperature" name="{{form.hiTemp.name}}" placeholder="lim. actual = {{setting['threshold']['temperature']['hi']}}">		
+					<label class="input-label">Limite superior</label>	
+				</div>
+			</div>
+		</div>
+
+		<div class="form-table">
+			<label>Rango de velocidad de agitador:</label>
+			<div class="form-row">
+				<div class="form-col">
+					<input type="number" id="lo-agitator" name="{{form.loSpeed.name}}" placeholder="lim. actual = {{setting['threshold']['speed']['lo']}}">			
+					<label class="input-label">Limite inferior</label>
+				</div>
+				<div class="form-col">
+					<input type="number" id="hi-agitator" name="{{form.hiSpeed.name}}"  placeholder="lim. actual = {{setting['threshold']['speed']['hi']}}">		
+					<label class="input-label">Limite superior</label>	
+				</div>
+			</div>
+		</div>
+
+		<button type="button" class="limitator-button" id="limitator-button" state="{{setting['threshold']['state']}}">
+			{% if setting['threshold']['state'] %}
+				Desactivar Limitador
+			{% else %}
+				Activar Limitador
+			{% endif %}
+		</button>
+		<button form="parameters_form" class="submmit-param-button" id="submmit-config">Actualizar Parámetros</button>
+	</fieldset>
+	</form>
+
+	<form class="form-field">	
+			<fieldset>
+				<legend>Comandos de sistema</legend>
+				<div class="system-state">
+					Estado del sistema: <span class="system-state" id="system-state" state="1">Encendido</span>
+				</div>
+				<div >
+					<label class="system-label">Temporizar apagado/encendido:</label>
+					<input type="number" id="state-timer" name="state-timer" min="0" max="120" placeholder="val. actual = {{setting['delay']}}">		
+				</div>
+				<button class="system-button" id="system-button" state="1">Apagar/Encender Sistema</button>
+			</fieldset>
+	</form>
+</main>
+
+{% endblock %}

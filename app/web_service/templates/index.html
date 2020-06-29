@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link href="/static/css/index.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/static/js/socket.io.js"></script>
+<script type="text/javascript" src="/static/js/index.js" ipaddr="{{ipaddr}}" port="{{port}}"></script>
+{% endblock %}
+
+{% block content %}
+<main>
+	 <h2>Monitoreo de Variables en Tiempo Real</h2>
+<!-- 	 <div><p>Here we show the real time status of all the elements of the application.</p></div> -->	
+<div class="item-wrapper">
+	  <div class="box"><div>Volumen Tanque 1</div>
+			<span id="reactive1_volume">3.03</span><span> ml</span>
+		</div>
+	  
+	  <div class="box"><div>Volumen Tanque 2</div>
+	  	<span id="reactive2_volume">4.02</span><span> ml</span>
+		</div>
+	  
+	  <div class="box"><div>Temperatura Reactivo 1</div>
+	  	<span id="reactive1_temperature">57.0</span><span> <sup>o</sup>C</span>
+		</div>
+	  
+	  <div class="box"><div>Temperatura Reactivo 2</div>
+	  	<span id="reactive2_temperature">58.0</span><span> <sup>o</sup>C</span>
+	  </div>
+	  
+	  <div class="box"><div>Caudal Reactivo 1</div>
+	  	<span id="reactive1_flow">0.54</span><span> ml/min</span>
+	  </div>
+	  
+	  <div class="box"><div>Caudal Reactivo 2</div>
+	  	<span id="reactive2_flow">0.33</span><span> ml/min</span>
+	  </div>
+	  
+	  <div class="box"><div>Velocidad Agitador</div>
+	  	<span id="agitator_speed">8.00</span><span> %</span>
+	  </div>
+	</div>
+</main>
+{% endblock %}

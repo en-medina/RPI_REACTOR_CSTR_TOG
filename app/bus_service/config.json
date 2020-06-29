@@ -1,0 +1,20 @@
+{
+	"bus":{
+		"threadname": "bus-service",
+		"intervaltime":0.5,
+		"loop":false,
+		"debug":true,
+		"iter": 5,
+
+		"pinout":{
+			"reactivo1_distance":{
+				"echo":23,
+				"trigger": 24
+			},
+			"reactivo2_distance":{
+				"echo":25,
+				"trigger": 26
+			}
+		}
+	}
+}

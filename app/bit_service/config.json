@@ -1,0 +1,22 @@
+{
+	"bit":{
+		"threadname": "bit-service",
+		"intervaltime":1.0,
+		"loop":false,
+		"debug":true,
+		"iter": 5,
+
+		"pinout":{
+			"green":1,
+			"yellow":2,
+			"red":3,
+			"system":4
+		},
+		"state":{
+			"green":0,
+			"yellow":0,
+			"red":0,
+			"system":1
+		}
+	}
+}

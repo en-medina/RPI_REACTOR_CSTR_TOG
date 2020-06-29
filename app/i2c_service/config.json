@@ -1,0 +1,22 @@
+{
+	"i2c":{
+		"threadname": "i2c-service",
+		"intervaltime":1.0,
+		"loop":false,
+		"debug":true,
+		"iter": 5,
+		"channel": 1,
+		"address":{
+			"adc":"0x01",
+			"reactive1_temperature":"0x02",
+			"reactive2_temperature":"0x03"
+			}
+		},
+		"adc":{
+			"selector":{
+				"agitator_speed":1,
+				"reactive1_flow":2,
+				"reactive2_flow":3
+		}
+	}
+}

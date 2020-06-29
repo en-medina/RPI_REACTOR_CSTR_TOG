@@ -1,0 +1,1 @@
+{"threshold": {"state": 0, "speed": {"lo": 30, "hi": 35}, "temperature": {"lo": 40, "hi": 60}}, "delay": 10}

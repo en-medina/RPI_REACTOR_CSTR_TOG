@@ -1,0 +1,20 @@
+{
+	"dist":{
+		"threadname": "dist-service",
+		"intervaltime":1.0,
+		"loop":false,
+		"debug":true,
+		"iter": 5,
+
+		"pinout":{
+			"reactive1_volume":{
+				"echo":23,
+				"trigger": 24
+			},
+			"reactive2_volume":{
+				"echo":25,
+				"trigger": 26
+			}
+		}
+	}
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SOCKET TEST</title>
+</head>
+<style type="text/css">
+    * {
+         text-align: center;
+    }
+    p {
+    text-align: center;
+    font-family: "Times New Roman", Times, serif;
+    font-size: x-large;
+    }
+    .test {
+    border-style: solid;
+    background: CornflowerBlue;
+    color: white;        
+    }
+</style>
+<body>
+	<h1>HERE AT SOCKET TESTING</h1>
+	<p>The last received data is: </p> <p class='test'></p> 
+
+</body>
+</html>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script defer type="text/javascript" charset="utf-8" >
+
+document.addEventListener("DOMContentLoaded", function(){
+	const receivedMessage = document.querySelector('.test');
+    const socket = io.connect('http://10.0.0.6:5000/');
+
+    socket.on('new data', function(message){
+    	receivedMessage.textContent = message
+    	console.log(message)
+    });
+  });
+</script>
