@@ -16,8 +16,8 @@ from shared_module.rotatequeue import RotateQueue
 
 def get_device_names():
     deviceNames = {
-        'i2c':  list(json2dict('i2c_service\\config.json', __file__)['i2c']['address'].keys()),
-        'dist': list(json2dict('dist_service\\config.json', __file__)['dist']['pinout'].keys())
+        'i2c':  list(json2dict('i2c_service/config.json', __file__)['i2c']['address'].keys()),
+        'dist': list(json2dict('dist_service/config.json', __file__)['dist']['pinout'].keys())
     }
     return deviceNames
 
