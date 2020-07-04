@@ -8,7 +8,7 @@ spec = importlib.util.spec_from_file_location("i2c", "../i2c_service/i2c.py")
 i2c = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(i2c)
 
-spec = importlib.util.spec_from_file_location("AnalogIn, ADS1115", "../i2c_service/ads1115.py.py")
+spec = importlib.util.spec_from_file_location("AnalogIn, ADS1115", "../i2c_service/ads1115.py")
 adc = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(adc)
 
