@@ -21,11 +21,12 @@ except Exception:
 
 
 class I2CIface(metaclass=singleton.Singleton):
-    _internalLock = threading.Lock()
+    
 
     def __init__(self,config):
         self.bus = smbus.SMBus(config['i2c']['channel'])
         self._internalDelay = 0.001
+        self._internalLock = threading.Lock()
 
     def action(self, data):
         with self._internalLock:
