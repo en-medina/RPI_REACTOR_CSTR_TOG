@@ -21,8 +21,8 @@ except Exception:
 
 
 class I2CIface(metaclass=singleton.Singleton):
-    
-    
+
+
     def __init__(self,config):
         self.bus = smbus.SMBus(config['i2c']['channel'])
         self._internalDelay = 0.001
@@ -63,11 +63,11 @@ class I2CIface(metaclass=singleton.Singleton):
         with self._internalLock:
             sleep(self._internalDelay)
             self.bus.write_i2c_block_data(address, register, buff)
+        pass
 
     def read_i2c_block_data(address,  register, block=2):
         with self._internalLock:
             sleep(self._internalDelay)
             return self.bus.read_i2c_block_data(address, register, block)
-
-
+        pass
 
