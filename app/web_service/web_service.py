@@ -74,7 +74,7 @@ def system_information(internalPipeline):
 				internalPipeline[key].put(data)
 
 def evaluate_threshold(limit, value, delay, pipeline):
-	if not limit['lo'] >= value >= limit['hi']:
+	if not limit['lo'] <= value <= limit['hi']:
 		if delay != 0:
 			pipeline['web']['bit'].put(
 				{
