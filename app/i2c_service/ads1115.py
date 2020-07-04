@@ -32,7 +32,7 @@ import struct
 # pylint: disable=unused-import
 # from .ads1x15 import ADS1x15, Mode
 #from micropython import const
-from adafruit_bus_device.i2c_device import I2CDevice
+#from adafruit_bus_device.i2c_device import I2CDevice
 
 
 
@@ -248,7 +248,7 @@ class ADS1x15:
         self.buf[0] = reg
         self.buf[1] = (value >> 8) & 0xFF
         self.buf[2] = value & 0xFF
-        self.i2c_device.write_buffer(self.address, self.buf[1::], reg)
+        self.i2c_device.write_word_data(self.address, value, reg)
         #with self.i2c_device as i2c:
         #    i2c.write_buffer(self.buf)
 
@@ -256,13 +256,17 @@ class ADS1x15:
         """Read 16 bit register value. If fast is True, the pointer register
         is not updated.
         """
-        self.i2c_device.read_word_data(self.address, reg)
+        #value = (self.buf[0] << 8) + self.buf[1]
+        self.i2c_device.write_block_data(self.address, [], reg)
+        value = self.i2c_device.read_word_data(self.address, reg)
+        self.buf[1] = (value >> 8) & 0xFF
+        self.buf[2] = value & 0xFF
         # with self.i2c_device as i2c:
         #     if fast:
         #         i2c.readinto(self.buf, end=2)
         #     else:
         #         i2c.write_then_readinto(bytearray([reg]), self.buf, in_end=2)
-        return self.buf[0] << 8 | self.buf[1]
+        return value
 
 #############################################################################################
 # Data sample rates
