@@ -57,12 +57,14 @@ class I2CIface(metaclass=singleton.Singleton):
             return self.bus.read_word_data(address, register)
         pass
 
-    def write_block_data(self, address, buffer, register):
+    def write_i2c_block_data(self, address, buff, register):
         #buffer is a list
         with self.__internalLock:
-            for msg in buffer:
-                self.bus.write_block_data(address, register, msg)
-                pass
-        pass
+            self.bus.write_i2c_block_data(address, register, buff)
+
+    def read_i2c_block_data(address,  register, block=2):
+        with self.__internalLock:
+            return self.bus.read_i2c_block_data(address, register, block)
+
 
 
