@@ -224,7 +224,7 @@ class ADS1x15:
 
         if self.mode == Mode.SINGLE:
             count_internal = self._conversion_complete()
-            print('first answer',int(count_internal,16))
+            print('first answer',count_internal)
             while not count_internal:
                 count_internal = self._conversion_complete()
                 pass
