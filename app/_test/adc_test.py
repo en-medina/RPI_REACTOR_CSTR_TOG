@@ -19,6 +19,13 @@ if '__main__' == __name__:
 	i2cIface = i2c.I2CIface(config)
 	adc_reader = adc.ADS1115(i2cIface)
 	channel = adc.AnalogIn(adc_reader, 0)
-	for _ in range(10):
-		print('the value is:', channel.value, 'the voltage is:', channel.voltage)
-		sleep(0.3)
+	voltage = 0
+	value = 0
+	n = 100
+	for _ in range(n):
+		voltage += channel.voltage
+		value += channel.value
+		#sleep(0.001)
+	voltage = voltage/n
+	value = value/n
+	print('the value is:', value, 'the voltage is:', voltage)
