@@ -65,7 +65,7 @@ class MLX90614():
     def read_temp(self, reg):
         data = self.read_reg(reg)
         temp = (data * 0.02) - 273.15
-        return round(temp,2)
+        return round(temp, 2)
 
     @property
     def measure(self):
@@ -80,9 +80,7 @@ class MLX90614():
         return self.get_ambient()
 
     def get_ambient(self):
-        data = self.read_temp(self.MLX90614_TA)
-        temp = (data * 0.02) - 273.15
-        return round(temp, 2)
+        return self.read_temp(self.MLX90614_TA)
 
     def get_object_1(self):
         return self.read_temp(self.MLX90614_TOBJ1)
