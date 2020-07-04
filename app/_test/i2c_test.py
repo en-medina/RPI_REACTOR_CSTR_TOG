@@ -1,5 +1,5 @@
 import importlib.util
-
+from time import sleep
 spec = importlib.util.spec_from_file_location("i2c", "../i2c_service/i2c.py")
 i2c = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(i2c)
@@ -12,5 +12,7 @@ if '__main__' == __name__:
 	config = {'i2c':{'channel':1}}
 	i2cIface = i2c.I2CIface(config)
 	temperature1 = mlx90614.MLX90614(i2cIface, 'reactive1_temperature', 0x5b)
-	for _ in range(10):
+	for _ in range(3):
 		print('the temperature is:', temperature1.get_ambient())
+		print('the temperature is:', temperature1.get_object_1())
+		sleep(1)
