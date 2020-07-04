@@ -22,7 +22,7 @@ except Exception:
 
 class I2CIface(metaclass=singleton.Singleton):
     
-
+    
     def __init__(self,config):
         self.bus = smbus.SMBus(config['i2c']['channel'])
         self._internalDelay = 0.001
