@@ -223,7 +223,10 @@ class ADS1x15:
         self._write_register(_ADS1X15_POINTER_CONFIG, config)
 
         if self.mode == Mode.SINGLE:
+            count_internal = 1
             while not self._conversion_complete():
+                print(count_internal)
+                count_internal += 1
                 pass
 
         return self._conversion_value(self.get_last_result(False))
