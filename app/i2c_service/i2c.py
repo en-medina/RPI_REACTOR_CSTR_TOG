@@ -30,44 +30,38 @@ class I2CIface(metaclass=singleton.Singleton):
     def action(self, data):
         with self.__internalLock:
             sleep(self._internalDelay)
-            print('start', data)
             ans = ''
             ans = [str(i) for i in range(data * 1, data * 10, data)]
-            print(' '.join(ans))
-            print('{} is finish'.format(data))
 
     def read_byte(self, address, register = None):
         with self.__internalLock:
             sleep(self._internalDelay)
-            print('read_byte')
             self.bus.read_byte_data(address, register)
         pass
 
     def write_byte(self, address, msg, register = None):
         with self.__internalLock:
             sleep(self._internalDelay)
-            print('write_byte')
             self.bus.write_byte_data(address, register, msg)
         pass
 
     def write_word_data(self, address, msg, register):
         with self.__internalLock:
             sleep(self._internalDelay)
-            print('write_byte')
             self.bus.write_word_data(address, register, msg)
         pass
 
     def read_word_data(self, address, register):
         with self.__internalLock:
             sleep(self._internalDelay)
-            print('read_word')
             return self.bus.read_word_data(address, register)
         pass
 
-    def write_buffer(self, address, buffer, register):
+    def write_block_data(self, address, buffer, register):
+        #buffer is a list
         with self.__internalLock:
             for msg in buffer:
-                self.bus.write_word_data(address, register, msg)
+                self.bus.write_block_data(address, register, msg)
                 pass
         pass
 
