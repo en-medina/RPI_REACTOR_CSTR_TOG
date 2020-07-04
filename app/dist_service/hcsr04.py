@@ -1,5 +1,10 @@
-import RPi.GPIO as GPIO
 import time
+import logging
+try:
+	import RPi.GPIO as GPIO
+except Exception:
+    logging.critical("RPi.GPIO package not found... creating None variable for testing purpose only...")
+    GPIO = None
 
 class HCSR04():
 

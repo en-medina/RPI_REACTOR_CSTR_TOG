@@ -1,5 +1,8 @@
 #!../env/bin/python3
 import logging
+logging.basicConfig(level=logging.INFO,
+            #format= '[%(levelname)s] [%(asctime)s] p%(process)s {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
+            format='[%(levelname)s] (%(threadName)-10s) %(message)s')
 import threading
 import time
 import queue
@@ -22,10 +25,6 @@ def get_device_names():
     return deviceNames
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO,
-                    #format= '[%(levelname)s] [%(asctime)s] p%(process)s {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
-                    format='[%(levelname)s] (%(threadName)-10s) %(message)s'
-                    )
     pipeline = {
     'i2c':{
             'i2c':RotateQueue(maxlen=10)

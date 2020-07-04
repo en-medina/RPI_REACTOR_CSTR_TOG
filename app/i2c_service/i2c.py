@@ -1,16 +1,21 @@
 #adc.py
 #gy906.py
-
+import logging
 from time import sleep
-#import smbus
 import threading
 import shared_module.singleton as singleton
+try:
+    import smbus
+except Exception:
+    logging.critical("smbus package not found...  creating None variable for testing purpose only...")
+    smbus = None
 
 
 class I2CIface(metaclass=singleton.Singleton):
-    #bus = smbus.SMBus(config['i2c']['channel'])
     __internalLock = threading.Lock()
     __internalDelay = 0.001
+    def __init__():
+        bus = smbus.SMBus(config['i2c']['channel'])
     def action(self, data):
         with self.__internalLock:
             sleep(__internalDelay)
