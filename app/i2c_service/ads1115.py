@@ -257,7 +257,7 @@ class ADS1x15:
         is not updated.
         """
         #value = (self.buf[0] << 8) + self.buf[1]
-        self.i2c_device.write_block_data(self.address, [], reg)
+        #self.i2c_device.write_block_data(self.address, [], reg)
         value = self.i2c_device.read_word_data(self.address, reg)
         self.buf[0] = (value >> 8) & 0xFF
         self.buf[1] = value & 0xFF
