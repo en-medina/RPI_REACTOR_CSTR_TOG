@@ -223,10 +223,7 @@ class ADS1x15:
         self._write_register(_ADS1X15_POINTER_CONFIG, config)
 
         if self.mode == Mode.SINGLE:
-            count_internal = self._conversion_complete()
-            print('first answer',count_internal)
-            while not count_internal:
-                count_internal = self._conversion_complete()
+            while not self._conversion_complete():
                 pass
 
         return self._conversion_value(self.get_last_result(False))
@@ -261,15 +258,19 @@ class ADS1x15:
         """
         #value = (self.buf[0] << 8) + self.buf[1]
         #self.i2c_device.write_block_data(self.address, [], reg)
-        value = self.i2c_device.read_word_data(self.address, reg)
-        self.buf[0] = (value >> 8) & 0xFF
-        self.buf[1] = value & 0xFF
+        #value = self.i2c_device.read_word_data(self.address, reg)
+        # self.buf[0] = (value >> 8) & 0xFF
+        # self.buf[1] = value & 0xFF
         # with self.i2c_device as i2c:
         #     if fast:
         #         i2c.readinto(self.buf, end=2)
         #     else:
         #         i2c.write_then_readinto(bytearray([reg]), self.buf, in_end=2)
-        return value
+        self.i2c_device.write_i2c_block_data(self.address, [reg], reg)
+        ans = self.i2c_device.read_i2c_block_data(self.address, reg)
+        self.buf[0] = ans[0]
+        self.buf[1] = ans[1]
+        return self.buf[0] << 8 | self.buf[1]
 
 #############################################################################################
 # Data sample rates
