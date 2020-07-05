@@ -21,53 +21,52 @@ except Exception:
 
 
 class I2CIface(metaclass=singleton.Singleton):
-
+    __internalLock = threading.Lock()
 
     def __init__(self,config):
         self.bus = smbus.SMBus(config['i2c']['channel'])
         self._internalDelay = 0.001
-        self._internalLock = threading.Lock()
 
     def action(self, data):
-        with self._internalLock:
+        with self.__internalLock:
             sleep(self._internalDelay)
             ans = ''
             ans = [str(i) for i in range(data * 1, data * 10, data)]
 
     def read_byte(self, address, register = None):
-        with self._internalLock:
+        with self.__internalLock:
             sleep(self._internalDelay)
             self.bus.read_byte_data(address, register)
         pass
 
     def write_byte(self, address, msg, register = None):
-        with self._internalLock:
+        with self.__internalLock:
             sleep(self._internalDelay)
             self.bus.write_byte_data(address, register, msg)
         pass
 
     def write_word_data(self, address, msg, register):
-        with self._internalLock:
+        with self.__internalLock:
             sleep(self._internalDelay)
             self.bus.write_word_data(address, register, msg)
         pass
 
     def read_word_data(self, address, register):
-        with self._internalLock:
+        with self.__internalLock:
             sleep(self._internalDelay)
             return self.bus.read_word_data(address, register)
         pass
 
     def write_i2c_block_data(self, address, buff, register):
         #buffer is a list
-        with self._internalLock:
+        with self.__internalLock:
             sleep(self._internalDelay)
             self.bus.write_i2c_block_data(address, register, buff)
-        pass
 
-    def read_i2c_block_data(address,  register, block=2):
-        with self._internalLock:
+    def read_i2c_block_data(self, address,  register, block=2):
+        with self.__internalLock:
             sleep(self._internalDelay)
             return self.bus.read_i2c_block_data(address, register, block)
-        pass
+
+
 
