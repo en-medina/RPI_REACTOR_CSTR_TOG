@@ -9,8 +9,8 @@ except Exception:
 class HCSR04():
 
 	def __init__(self, GPIO_ECHO, GPIO_TRIGGER):
-		#GPIO Mode (BOARD / BCM)
-		GPIO.setmode(GPIO.BCM)
+		#GPIO Mode (BOARD / BCM) this setmode is apply in global config
+		#GPIO.setmode(GPIO.BCM)
 
 		#set GPIO Pins
 		self.GPIO_TRIGGER = GPIO_TRIGGER
@@ -44,4 +44,4 @@ class HCSR04():
 		# multiply with the sonic speed (34300 cm/s)
 		# and divide by 2, because there and back
 		distance = (TimeElapsed * 34300) / 2
-		return distance
+		return round(distance, 2)

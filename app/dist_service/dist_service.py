@@ -1,4 +1,4 @@
-#from .hcsr04 import HCSR04
+from .hcsr04 import HCSR04
 import concurrent.futures
 import shared_module.helpers as helpers
 from time import sleep
@@ -79,10 +79,10 @@ def hcsr04_pool(name, echo, trigger, pipeline):
 			pipeline['dist']['bus'].put((name, value))
 
 	else:
-		#hcsr04 = HCSR04(echo, trigger)
+		hcsr04 = HCSR04(echo, trigger)
 		while True:
 			sleep(_intervalMeasureTime)
 			logging.debug(f'reading sensor {name} value...')
-			value = round(hcsr04.distance(), 2)
+			value = hcsr04.distance()
 			logging.debug(f'queuing sensor {name} with value of {value}cm...')
 			pipeline['dist']['bus'].put((name, value))
