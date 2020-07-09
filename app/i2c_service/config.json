@@ -7,16 +7,29 @@
 		"iter": 5,
 		"channel": 1,
 		"address":{
-			"adc":"0x01",
-			"reactive1_temperature":"0x02",
-			"reactive2_temperature":"0x03"
+			"adc":"0x48",
+			"reactive1_temperature":"0x5a",
+			"reactive2_temperature":"0x5b",
+			"reactive3_temperature":"0x5c"
 			}
 		},
 		"adc":{
 			"selector":{
-				"agitator_speed":1,
-				"reactive1_flow":2,
-				"reactive2_flow":3
-		}
+				"agitator_speed":{
+					"pin":0,
+					"slope":1,
+					"offset":0
+				},
+				"reactive1_flow":{
+					"pin":1,
+					"slope":1,
+					"offset":0
+				},
+				"reactive2_flow":{
+					"pin":2,
+					"slope":1,
+					"offset":0
+				}
+		  }
 	}
 }

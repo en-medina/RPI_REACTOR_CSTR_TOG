@@ -45,7 +45,7 @@ _ADS1X15_PGA_RANGE = {2 / 3: 6.144, 1: 4.096, 2: 2.048, 4: 1.024, 8: 0.512, 16: 
 class AnalogIn:
     """AnalogIn Mock Implementation for ADC Reads."""
 
-    def __init__(self, ads, positive_pin,  name='', negative_pin=None,):
+    def __init__(self, ads, positive_pin,  name='', slope=1,offset=0, negative_pin=None,):
         """AnalogIn
         :param ads: The ads object.
         :param ~digitalio.DigitalInOut positive_pin: Required pin for single-ended.
@@ -53,6 +53,8 @@ class AnalogIn:
         :param ~digitalio.DigitalInOut negative_pin: Optional pin for differential reads.
         """
         self._ads = ads
+        self.slope = slope
+        self.offset = offset
         self._pin_setting = positive_pin
         self._negative_pin = negative_pin
         self.is_differential = False
@@ -75,9 +77,10 @@ class AnalogIn:
     @property
     def value(self):
         """Returns the value of an ADC pin as an integer."""
-        return self._ads.read(
+        answer = self._ads.read(
             self._pin_setting, is_differential=self.is_differential
         ) << (16 - self._ads.bits)
+        return round(slope * answer + offset, 2)
 
     @property
     def voltage(self):

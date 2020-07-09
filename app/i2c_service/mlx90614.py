@@ -101,7 +101,7 @@ class MLX90614():
     
     @property
     def value(self):
-        return self.get_ambient()
+        return self.get_object_1()
 
     def get_ambient(self):
         return self.read_temp(self.MLX90614_TA)

@@ -40,7 +40,8 @@ def init_i2c(pipeline):
 		{
 			'name': name, 
 			'addr': addr, 
-			'pipeline': pipeline
+			'pipeline': pipeline,
+			'channel': config['i2c']['channel']
 		} 
 		for name, addr in config['i2c']['address'].items() if 'adc' not in name
 	]
@@ -49,7 +50,8 @@ def init_i2c(pipeline):
 			'name': 'adc-service',
 			'addr': config['i2c']['address']['adc'],
 			'pipeline': pipeline,
-			'adc': config['adc']
+			'adc': config['adc'],
+			'channel': config['i2c']['channel']
 	}
 
 	with concurrent.futures.ThreadPoolExecutor(max_workers=3, thread_name_prefix = _serviceName) as executor:
@@ -78,6 +80,7 @@ def mlx90614_loop(params):
 	name	= params['name']
 	address	= params['addr']
 	pipeline = params['pipeline']
+	channel = params['channel']
 	sensor = None
 
 	#Initializing Temperature Sensor 
@@ -91,7 +94,7 @@ def mlx90614_loop(params):
 	#Start the sensor loop collection module
 	else:
 		#Initializing Temperature Sensor 
-		sensor = MLX90614(I2CIface(), name, address=helpers.str2hex(address))
+		sensor = MLX90614(I2CIface(channel), name, address=helpers.str2hex(address))
 
 		#Collect data of the sensor	in a undefined matter
 		while _startLoop:
@@ -109,13 +112,14 @@ def adc1115_loop(params):
 	address	= params['addr']
 	pipeline = params['pipeline']
 	config = params['adc']
+	channel = params['channel']
 	ads = None
 	sensors = list()
 
 	#Initializing ADC module if not internal debug mode is enable
 	logging.info(f'starting ADC1115 module at address {address}...')
-	# if not _isDebug:
-	# 	ads = ADC(I2CIface())
+	if not _isDebug:
+		ads = adc.ADS1115(i2cIface(channel), address=helpers.str2hex(address))
 
 	#If Internal debug is enable, generate random sensor value for testing purpose 
 	#or instead initiziale each sensor analog input and start the sensor loop collection module
@@ -128,7 +132,9 @@ def adc1115_loop(params):
 
 	#initiziale each sensor analog input and start the sensor loop collection module
 	else:
-#		sensors = [AnalogIn(ads, config['selector'][name], name) for name in devices_name]		
+		sensors = [AnalogIn(ads, config['selector'][name]['pin'], 
+			name,config['selector'][name]['slope'],config['selector'][name]['offset']
+			) for name in devices_name]		
 		while _startLoop:
 			for sensor in sensors:	
 				_collect_sensor_data(sensor, pipeline)
