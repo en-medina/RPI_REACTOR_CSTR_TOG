@@ -47,7 +47,7 @@ if __name__ == "__main__":
     pipeline['i2c']['bus'] = pipeline['i2c']['i2c']
     pipeline['dist']['bus'] = pipeline['dist']['dist']
     pipeline['bus']['web'] = pipeline['web']['web']
-    pipeline['bus']['bit'] = pipeline['bit']['bit']
+    pipeline['web']['bit'] = pipeline['bit']['bit']
     #pipeline['web']['bus'] = pipeline['bus']['bus']
     #pipeline['bus']['web'] = pipeline['web']['web']
 
@@ -58,7 +58,7 @@ if __name__ == "__main__":
     with concurrent.futures.ThreadPoolExecutor(max_workers=5, thread_name_prefix = 'app-service') as executor:
         futureException = {
               #executor.submit(init_bit, pipeline): 'bit-service',
-              #executor.submit(init_web, pipeline): 'web-service',
+              executor.submit(init_web, pipeline): 'web-service',
               executor.submit(init_i2c, pipeline): 'i2c-service',
               executor.submit(init_dist, pipeline): 'dist-service',
               executor.submit(init_bus, pipeline, get_device_names()): 'bus-service' 
