@@ -32,6 +32,7 @@ class FileManager(metaclass=SingletonByArg):
 
 	def dict2json(self, data):
 		with self.lock:
-			data = jdumps(data)
+			jdumps()
+			data = jdumps(data, indent=4)
 			with open(self.filename, 'w') as rawFile:
 				rawFile.write(data)
