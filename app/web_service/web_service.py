@@ -35,7 +35,7 @@ def init_web(pipeline):
 		'monitor': Queue()
 	}
 
-	with concurrent.futures.ThreadPoolExecutor(max_workers=3, thread_name_prefix = _serviceName) as executor:
+	with concurrent.futures.ThreadPoolExecutor(max_workers=4, thread_name_prefix = _serviceName) as executor:
 
 		futureException = {
 			executor.submit(web_server): 'flask_service',

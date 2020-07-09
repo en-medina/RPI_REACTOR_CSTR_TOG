@@ -66,13 +66,14 @@ def push_data(_queue):
 				data = _queue.get()
 				logging.debug(f'from device {data[0]} was get the value {data[1]}, pushing to {data[0]} table...')
 				_serviceDB.insert(*data)
+				sleep(_intervalMeasureTime)
 
 def _debug_push_data(_queue):
 	for _ in range(_debugIterAmount):
-		sleep(_intervalMeasureTime)
 		while not _queue.empty():
 			data = _queue.get()
 			logging.info(f'from device {data[0]} was get the value {data[1]}, pushing to {data[0]} table...')
 			print(data)
 			_serviceDB.insert(*data)
+			sleep(_intervalMeasureTime)
 

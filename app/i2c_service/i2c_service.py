@@ -54,7 +54,7 @@ def init_i2c(pipeline):
 			'channel': config['i2c']['channel']
 	}
 
-	with concurrent.futures.ThreadPoolExecutor(max_workers=3, thread_name_prefix = _serviceName) as executor:
+	with concurrent.futures.ThreadPoolExecutor(max_workers=4, thread_name_prefix = _serviceName) as executor:
 
 		futureException = {
 			executor.submit(mlx90614_loop, data): data['name'] for data in temp_params
