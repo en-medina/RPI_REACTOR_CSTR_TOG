@@ -9,8 +9,8 @@ mlx90614 = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mlx90614)
 
 if '__main__' == __name__:
-	config = {'i2c':{'channel':1}}
-	i2cIface = i2c.I2CIface(config)
+	channel = 1
+	i2cIface = i2c.I2CIface(channel)
 	temperature1 = mlx90614.MLX90614(i2cIface, 'reactive1_temperature', 0x5b)
 	for _ in range(3):
 		print('the temperature is:', temperature1.get_ambient())

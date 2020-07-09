@@ -15,8 +15,8 @@ spec.loader.exec_module(adc)
 
 
 if '__main__' == __name__:
-	config = {'i2c':{'channel':1}}
-	i2cIface = i2c.I2CIface(config)
+	channel = 1
+	i2cIface = i2c.I2CIface(channel)
 	adc_reader = adc.ADS1115(i2cIface)
 	channel = adc.AnalogIn(adc_reader, 0)
 	while True:
