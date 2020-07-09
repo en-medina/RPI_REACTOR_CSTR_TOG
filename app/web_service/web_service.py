@@ -105,8 +105,7 @@ def system_monitor(internalPipeline, pipeline, monitorKey):
 
 		# Debug Forced delay Implementation
 		icnt += 1
-		if _isDebug:
-			sleep(_intervalMeasureTime)
+		sleep(_intervalMeasureTime)
 
 		while not internalPipeline[monitorKey].empty():
 			data = internalPipeline[monitorKey].get()

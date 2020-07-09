@@ -3,7 +3,7 @@
 		"threadname": "web-service",
 		"intervaltime":0.5,
 		"loop":false,
-		"debug":true,
+		"debug":false,
 		"iter": 5
 	}
 }
