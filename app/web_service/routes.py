@@ -4,8 +4,10 @@ import shared_module.helpers as helpers
 import logging
 import shared_module.helpers as helpers
 import shared_module.file_manager as file_manager
-from .forms import LimitForm
+from .forms import LimitForm, GraphForm
+from .graph import generate_graph
 from json import loads as jsonloads, dumps as jsondumps
+from datetime import datetime
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -15,8 +17,8 @@ def run_flask():
 	logging.info(f'Starting Flask Framework Web Server...')
 
 	app.config.update(dict(
-    SECRET_KEY="my secret key",
-    WTF_CSRF_SECRET_KEY="my csrf secret key"	
+    SECRET_KEY="WEFN ZLWLNDCOZL ASZ",
+    WTF_CSRF_SECRET_KEY="HQIUNJOADBINLMFSDLVSX"	
   ))
 	ipaddr = helpers.get_server_ip()
 	socketio.run(app, host = ipaddr, debug = False)
@@ -49,6 +51,22 @@ def configuration():
 		system_setting.dict2json(setting)
 		setting = system_setting.json2dict()
 	return render_template('configuration.html', ipaddr = ipaddr, port = port, setting = setting, form=form)
+
+@app.route("/graph", methods=['POST', 'GET'])
+def graph():
+	form = GraphForm()
+	form.update_choices()
+	#graphData = {"data":[1,2,1,1,5,3,0,7],"labels":[1,2,3,4,5,6,7,8],"title":"my Line"} 
+	graphData = {"data":[0],"labels":[0],"title":"Seleccione una gráfica"}  
+	if form.validate_on_submit():
+		beginTime = datetime.combine(form.beginDate.data, form.beginTime.data)
+		endTime = datetime.combine(form.endDate.data, form.endTime.data)
+		interval = int(form.intervalList.data)
+		tableName = form.sensorList.data
+		graphData = generate_graph(tableName, beginTime, endTime, interval)
+		pass
+	current_date = datetime.now().strftime('%Y-%m-%d')
+	return render_template('graph.html', graphData=jsondumps(graphData), form=form, date=current_date)
 
 @socketio.on('change_limit_state')
 def change_limit_state(message):

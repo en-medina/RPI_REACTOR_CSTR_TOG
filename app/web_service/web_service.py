@@ -12,6 +12,8 @@ import shared_module.file_manager as file_manager
 import concurrent.futures
 from json import dumps as jsondumps
 
+logging.getLogger('socketio').setLevel(logging.ERROR)
+logging.getLogger('engineio').setLevel(logging.ERROR)
 
 _intervalMeasureTime = float()
 _startLoop = bool()

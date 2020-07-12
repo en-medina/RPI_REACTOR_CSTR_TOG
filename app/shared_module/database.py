@@ -31,16 +31,25 @@ class SQLITE(metaclass=Singleton):
         with self.__internalLock:
             ans = list()
             if self._table_exist(table):
-                cursor = self.__conn.cursor()
-                cursor.execute('SELECT value, date_created from {}'.format(table))
-                temp = cursor.fetchall()
 
+                cursor = self.__conn.cursor()
+                if not startDate is None and not endDate is None:
+                    startDate = startDate.strftime( '%Y-%m-%d %H:%M:%S')
+                    endDate = endDate.strftime( '%Y-%m-%d %H:%M:%S')
+                    cursor.execute('''SELECT value, date_created from {}
+                        WHERE date_created >= '{}' AND date_created < '{}'
+                        '''.format(table, startDate, endDate))
+                else:
+                    cursor.execute('SELECT value, date_created from {}'.format(table))
+
+                temp = cursor.fetchall()
                 for data in temp:
                     ans.append((
                         float(data[0]), 
                         datetime.strptime(data[1], '%Y-%m-%d %H:%M:%S')
                         ))
                 self.__conn.commit()
+
             return ans
 
     def get_last_value(self, table):
