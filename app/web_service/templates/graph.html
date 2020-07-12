@@ -24,19 +24,19 @@
 		</div>
 		<div>
 			<label for="appt">Fecha de inicio:</label>
-			<input type="date" id="appt1" name="{{form.beginDate.name}}" value="{{date}}" >
-			<input type="time" id="appt2" name="{{form.beginTime.name}}" value="00:00" >			
+			<input type="date" id="appt1" name="{{form.beginDate.name}}" value="{{date['beginDate']}}" >
+			<input type="time" id="appt2" name="{{form.beginTime.name}}" value="{{date['beginTime']}}" >			
 		</div>
 		<div>
 			<label for="appt">Fecha de fin:</label>
-			<input type="date" id="appt3" name="{{form.endDate.name}}" value="{{date}}" >
-			<input type="time" id="appt4" name="{{form.endTime.name}}" value="23:59" >						
+			<input type="date" id="appt3" name="{{form.endDate.name}}" value="{{date['endDate']}}" >
+			<input type="time" id="appt4" name="{{form.endTime.name}}" value="{{date['endTime']}}" >						
 		</div>
 		<div>
 			<label>Eliga el intervalo:</label>
 			<select name="{{form.intervalList.name}}" >
 				{%for line in form.intervalList.choices%}
-					<option value={{line[0]}}>{{line[1]}}</option>
+					<option value={{line[0]}} {% if line[0]==900 %} selected {% endif %}>{{line[1]}}</option>
 				{%endfor%}
 			</select>			
 		</div>

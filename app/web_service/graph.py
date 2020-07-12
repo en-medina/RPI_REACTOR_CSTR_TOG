@@ -11,7 +11,6 @@ def generate_graph(tableName, beginDate, endDate, interval=60):
 		'labels':list()
 	}
 	iterDate = beginDate
-	print(tableName)
 	increment = timedelta(seconds=interval)
 	while iterDate < endDate:
 		result = db.get_values(tableName, iterDate, iterDate + increment)

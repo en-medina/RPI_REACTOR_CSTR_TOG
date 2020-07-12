@@ -7,7 +7,7 @@ import shared_module.file_manager as file_manager
 from .forms import LimitForm, GraphForm
 from .graph import generate_graph
 from json import loads as jsonloads, dumps as jsondumps
-from datetime import datetime
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -65,8 +65,15 @@ def graph():
 		tableName = form.sensorList.data
 		graphData = generate_graph(tableName, beginTime, endTime, interval)
 		pass
-	current_date = datetime.now().strftime('%Y-%m-%d')
-	return render_template('graph.html', graphData=jsondumps(graphData), form=form, date=current_date)
+	
+	current_time = datetime.now()
+	current={
+		'beginDate': (current_time - timedelta(seconds=3600*2)).strftime('%Y-%m-%d'),
+		'beginTime':(current_time - timedelta(seconds=3600*2)).strftime('%H:%M'),
+		'endDate': current_time.strftime('%Y-%m-%d'),
+		'endTime': current_time.strftime('%H:%M')
+	}
+	return render_template('graph.html', graphData=jsondumps(graphData), form=form, date=current)
 
 @socketio.on('change_limit_state')
 def change_limit_state(message):
