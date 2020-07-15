@@ -18,7 +18,6 @@ if '__main__' == __name__:
 	triggerPin = int(input('Enter Echo Trigger PIN: '))
 	distance = hcs.HCSR04(echoPin, triggerPin)
 	while True:
-		for i in range(len(channels)):
-			print('The distance is', distance.distance())
-			sleep(2)
+		print('The distance is', distance.distance())
+		sleep(2)
 
