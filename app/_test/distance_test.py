@@ -23,6 +23,6 @@ if '__main__' == __name__:
 		while True:
 			print('The distance is', distance.distance())
 			sleep(2)
-		except Exception:
-			print("Measurement stopped by User")
-			GPIO.cleanup()
+	except Exception:
+		print("Measurement stopped by User")
+		GPIO.cleanup()
