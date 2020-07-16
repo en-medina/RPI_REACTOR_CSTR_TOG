@@ -4,8 +4,9 @@ from time import sleep
 
 try:
 	import RPi.GPIO as GPIO
-	GPIO.setmode(GPIO.BCM)
 	GPIO.setwarnings(False)
+	GPIO.setmode(GPIO.BOARD)
+	
 except Exception:
     logging.critical("RPi.GPIO package not found... creating None variable for testing purpose only...")
     GPIO = None
@@ -18,7 +19,10 @@ if '__main__' == __name__:
 	echoPin = int(input('Enter Echo PIN: '))
 	triggerPin = int(input('Enter Echo Trigger PIN: '))
 	distance = hcs.HCSR04(echoPin, triggerPin)
-	while True:
-		print('The distance is', distance.distance())
-		sleep(2)
-
+	try:
+		while True:
+			print('The distance is', distance.distance())
+			sleep(2)
+		except Exception:
+			print("Measurement stopped by User")
+			GPIO.cleanup()
