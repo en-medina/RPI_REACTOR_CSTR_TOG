@@ -13,6 +13,9 @@ adc = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(adc)
 
 
+def calculate_current(value, sensibility = 0.066):
+	value = value*(5.0 / 1023.0)
+	return (value-2.5)/sensibility
 
 if '__main__' == __name__:
 	channel = 1
@@ -24,6 +27,6 @@ if '__main__' == __name__:
 		adc.AnalogIn(adc_reader, 3)]
 	while True:
 		for i in range(len(channels)):
-			print('In the channel', i, 'the value is:', channels[i].value)
+			print('In the channel', i, 'the value is:', calculate_current(channels[i].value))
 			sleep(2)
 		print('\n\n')
