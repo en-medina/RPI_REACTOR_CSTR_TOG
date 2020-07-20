@@ -22,10 +22,9 @@ if '__main__' == __name__:
 	adc_reader = adc.ADS1115(i2cIface)
 	channels = [adc.AnalogIn(adc_reader, 0),
 		adc.AnalogIn(adc_reader, 1),
-		adc.AnalogIn(adc_reader, 2),
-		adc.AnalogIn(adc_reader, 3)]
+		adc.AnalogIn(adc_reader, 2)]
 	while True:
 		for i in range(len(channels)):
-			print('In the channel', i, 'the value is:', calculate_current(channels[i].voltage))
+			print('In the channel', i, 'the voltage is:', channels[i].voltage)
 			sleep(2)
 		print('\n\n')
