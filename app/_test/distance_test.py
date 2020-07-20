@@ -21,7 +21,12 @@ if '__main__' == __name__:
 	distance = hcs.HCSR04(echoPin, triggerPin)
 	try:
 		while True:
-			print('The distance is', distance.distance())
+			cnt = 10
+			acc = 0
+			for i in range(cnt):
+				acc += distance.distance()
+			acc = acc/cnt
+			print('The distance is', acc)
 			sleep(2)
 	except Exception:
 		print("Measurement stopped by User")
