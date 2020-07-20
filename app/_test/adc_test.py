@@ -24,7 +24,12 @@ if '__main__' == __name__:
 		adc.AnalogIn(adc_reader, 1),
 		adc.AnalogIn(adc_reader, 2)]
 	while True:
-		for i in range(2):
-			print('In the channel', i, 'the voltage is:', channels[i].voltage * 100)
+		for i in range(1):
+			acc = 0
+			cnt = 10
+			for y in range(cnt)
+				acc += channels[i].voltage * 100
+			acc = acc / cnt
+			print('In the channel', i, 'the voltage is:', acc)
 			sleep(0.5)
 		print('\n\n')
