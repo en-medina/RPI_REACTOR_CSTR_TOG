@@ -25,9 +25,10 @@ if '__main__' == __name__:
 			acc = 0
 			for i in range(cnt):
 				acc += distance.distance()
+				sleep(0.1)
 			acc = acc/cnt
 			print('The distance is', acc)
-			sleep(2)
+			sleep(1)
 	except Exception:
 		print("Measurement stopped by User")
 		GPIO.cleanup()
