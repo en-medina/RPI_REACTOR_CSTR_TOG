@@ -20,9 +20,10 @@ if '__main__' == __name__:
 	channel = 1
 	i2cIface = i2c.I2CIface(channel)
 	adc_reader = adc.ADS1115(i2cIface)
-	channels = [adc.AnalogIn(adc_reader, 0),
-		adc.AnalogIn(adc_reader, 1),
-		adc.AnalogIn(adc_reader, 2)]
+	channels = [
+	# adc.AnalogIn(adc_reader, 0),
+	# 	adc.AnalogIn(adc_reader, 1),
+	 	adc.AnalogIn(adc_reader, 2)]
 	while True:
 		for i in range(1):
 			acc = 0
