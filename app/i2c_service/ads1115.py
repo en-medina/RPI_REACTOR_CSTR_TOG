@@ -80,7 +80,7 @@ class AnalogIn:
         answer = self._ads.read(
             self._pin_setting, is_differential=self.is_differential
         ) << (16 - self._ads.bits)
-        return round(self.slope * answer + self.offset, 2)
+        return answer
 
     @property
     def voltage(self):
