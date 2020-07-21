@@ -28,7 +28,7 @@ if '__main__' == __name__:
 			acc = 0
 			cnt = 10
 			for y in range(cnt):
-				acc += channels[i].voltage * 100
+				acc += channels[i].voltage
 			acc = acc / cnt
 			print('In the channel', i, 'the voltage is:', acc)
 			sleep(0.5)
