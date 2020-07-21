@@ -3,7 +3,7 @@
 		"threadname": "bit-service",
 		"intervaltime":1.0,
 		"loop":false,
-		"debug":true,
+		"debug":false,
 		"iter": 5,
 
 		"pinout":{
