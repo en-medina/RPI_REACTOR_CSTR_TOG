@@ -27,7 +27,7 @@ if '__main__' == __name__:
 	while True:
 		for i in range(1):
 			acc = 0
-			cnt = 10
+			cnt = 1
 			for _ in range(cnt):
 				acc += channels[i].value
 			acc = int(acc / cnt)
