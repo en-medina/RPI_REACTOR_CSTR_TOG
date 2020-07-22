@@ -18,7 +18,7 @@ def generate_graph(tableName, beginDate, endDate, interval=60):
 		data = round(reduce(lambda a, b: a + b[0], result, 0) / count, 2)
 
 		graph['data'].append(data)
-		graph['labels'].append(iterDate.__str__())
+		graph['labels'].append(iterDate.strftime('%H:%M'))
 
 		iterDate += increment
 

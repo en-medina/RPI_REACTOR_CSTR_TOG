@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link href="/static/css/index.css" rel="stylesheet" type="text/css">
+<link href="/static/css/graph.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="/static/js/chart.js@2.8.0.js"></script>
 <script type="text/javascript" src="/static/js/graph.js" data='{{graphData}}'></script>
 {% endblock %}
@@ -42,9 +42,10 @@
 		</div>
 		<div>
 			<button type ="submit" form="graph_form" id="submmit-graph">Generar gráfica</button>
+			<button type="button" id="csv-button">Descargar datos</button>
 		</div>
 	</form>
+
 	<canvas id="out_graphics" width="300" height="300"></canvas>
-	<button type="button" id="csv-button">Descargar datos</button>
 </main>
 {% endblock %}
