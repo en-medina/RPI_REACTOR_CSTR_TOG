@@ -8,7 +8,7 @@ from time import sleep
 import logging 
 import random
 
-#from .ads1115 import ADS, AnalogIn
+from .ads1115 import ADS, AnalogIn
 
 _intervalMeasureTime = float()
 _startLoop = bool()
