@@ -119,7 +119,7 @@ def adc1115_loop(params):
 	#Initializing ADC module if not internal debug mode is enable
 	logging.info(f'starting ADC1115 module at address {address}...')
 	if not _isDebug:
-		ads = ADS1115(i2cIface(channel), address=helpers.str2hex(address))
+		ads = ADS1115(I2CIface(channel), address=helpers.str2hex(address))
 
 	#If Internal debug is enable, generate random sensor value for testing purpose 
 	#or instead initiziale each sensor analog input and start the sensor loop collection module
