@@ -3,17 +3,17 @@
 		"threadname": "dist-service",
 		"intervaltime":1.0,
 		"loop":false,
-		"debug":false,
+		"debug":true,
 		"iter": 5,
 
 		"pinout":{
 			"reactive1_volume":{
-				"echo":23,
-				"trigger": 24
+				"echo":11,
+				"trigger": 12
 			},
 			"reactive2_volume":{
-				"echo":25,
-				"trigger": 26
+				"echo":15,
+				"trigger": 16
 			}
 		}
 	}

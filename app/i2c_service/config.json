@@ -3,14 +3,14 @@
 		"threadname": "i2c-service",
 		"intervaltime":1.0,
 		"loop":false,
-		"debug":false,
+		"debug":true,
 		"iter": 5,
 		"channel": 1,
 		"address":{
 			"adc":"0x48",
 			"reactive1_temperature":"0x5a",
 			"reactive2_temperature":"0x5b",
-			"reactive3_temperature":"0x5c"
+			"reactor_temperature":"0x5c"
 			}
 		},
 		"adc":{
