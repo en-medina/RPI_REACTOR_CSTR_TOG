@@ -9,6 +9,7 @@ try:
 	sleep(10)
 	for pin in pins:
 		GPIO.output(self.GPIO_TRIGGER, GPIO.LOW)
-except Exception:
+except Exception as e:
+	print(e)
 	GPIO.cleanup()
 GPIO.cleanup()
