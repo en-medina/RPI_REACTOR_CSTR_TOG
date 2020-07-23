@@ -82,6 +82,7 @@ def evaluate_threshold(limit, value, delay, pipeline):
 				{
 					'green':{'state':0,'delay':0, 'reverse':False},
 					'yellow':{'state':1, 'delay': delay, 'reverse':True},
+					'alarm':{'state':1, 'delay': delay, 'reverse':True},
 					'red':{'state':1,'delay':delay, 'reverse':False},
 					'system':{'state':0,'delay':delay, 'reverse':False}
 				}
@@ -91,6 +92,7 @@ def evaluate_threshold(limit, value, delay, pipeline):
 				{
 					'green':{'state':0,'delay':0, 'reverse':False},
 					'yellow':{'state':0, 'delay': 0, 'reverse':False},
+					'alarm':{'state':0, 'delay': 0, 'reverse':False},
 					'red':{'state':1, 'delay':0, 'reverse':False},
 					'system':{'state':0, 'delay':0, 'reverse':False}
 				}
