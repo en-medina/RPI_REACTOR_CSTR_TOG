@@ -25,5 +25,5 @@ class GraphForm(FlaskForm):
 	def update_choices(self):
 		db = database.SQLITE()
 		self.sensorList.choices = [(x, x.replace('_',' ')) for x in db.get_table_name()]
-		self.intervalList.choices = [(60,"1min"),(600,"10min"),(900,"15min"),(1800,"30min"),(3600,"1h"),(10800,"3h"),(43200,"12h")]
+		self.intervalList.choices = [(1,"1seg"),(10,"10seg"),(15,"15seg"),(60,"1min"),(600,"10min"),(900,"15min"),(1800,"30min"),(3600,"1h"),(10800,"3h"),(43200,"12h")]
 
