@@ -42,13 +42,13 @@ class HCSR04():
 
 			# save StartTime
 			while GPIO.input(self.GPIO_ECHO) == 0:
-			    StartTime = time.time()
+					StartTime = time.time()
 					if self.is_timed_out(StartTime):
 						break
 
 			# save time of arrival
 			while GPIO.input(self.GPIO_ECHO) == 1:
-			    StopTime = time.time()
+					StopTime = time.time()
 					if self.is_timed_out(StopTime):
 						break
 
