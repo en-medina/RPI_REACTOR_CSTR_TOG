@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO  
 GPIO.cleanup() 
-GPIO.mode(GPIO.BOARD)
+GPIO.setmode(GPIO.BOARD) # BOARD pin-numbering scheme
+GPIO.setwarnings(False)
 pins = [33, 31, 29, 32, 13]
 try:
 	for pin in pins:
