@@ -59,7 +59,7 @@ if __name__ == "__main__":
     if not GPIO is None:
         logging.info("Changing GPIO to BOARD MODE")
         GPIO.setmode(GPIO.BOARD) # BOARD pin-numbering scheme
-
+        GPIO.setwarnings(False)
     logging.info('Starting REACTOR CSTR - TOG Application Services...')
 
     logging.info(f'showing sensor names list{get_device_names()}')
