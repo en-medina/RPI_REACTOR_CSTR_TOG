@@ -40,7 +40,8 @@ def init_dist(pipeline):
 				hcsr04_pool, 
 				key,
 				dist_params[key]['echo'], 
-				dist_params[key]['trigger'], 
+				dist_params[key]['trigger'],
+				dist_params[key]['equation'], 
 				pipeline
 				): key for key in dist_params.keys()
 		}
@@ -54,12 +55,13 @@ def init_dist(pipeline):
 			else:
 				logging.info(f'({_serviceName}) - \'{threadName}\' finish without error and return \'{data}\'')
 
-def hcsr04_pool(name, echo, trigger, pipeline):
+def hcsr04_pool(name, echo, trigger, eq, pipeline):
 	'''
 	function loop for HC-SR04 sensor. 
 	:params string name: name of the sensor
 	:params int echo: location of the echo pin in the RPI
 	:params int trigger: location of the trigger pin in the RPI
+	:params list() eq: equation value for convert distance to volume
 	:params queue pipeline: queue class for pushing data
 	'''	
 	#Initialize internal variable
@@ -84,5 +86,6 @@ def hcsr04_pool(name, echo, trigger, pipeline):
 			sleep(_intervalMeasureTime)
 			logging.debug(f'reading sensor {name} value...')
 			value = hcsr04.distance()
-			logging.debug(f'queuing sensor {name} with value of {value}cm...')
+			value = round(eq[0] * value * value + eq[1] * value + eq[2], 2)
+			logging.debug(f'queuing sensor {name} with value of {value} cm...')
 			pipeline['dist']['bus'].put((name, value))

@@ -9,11 +9,13 @@
 		"pinout":{
 			"reactive1_volume":{
 				"echo":11,
-				"trigger": 12
+				"trigger": 12,
+				"equation":[-0.8018, -131.54, 3875.2]
 			},
 			"reactive2_volume":{
 				"echo":15,
-				"trigger": 16
+				"trigger": 16,
+				"equation":[-1.4075, -123.67, 4005]
 			}
 		}
 	}
