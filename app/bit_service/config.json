@@ -16,6 +16,7 @@
 		"state":{
 			"green":1,
 			"yellow":0,
+			"alarm":0,
 			"red":0,
 			"system":1
 		}
