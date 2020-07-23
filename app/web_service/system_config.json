@@ -2,8 +2,8 @@
     "threshold": {
         "state": 0,
         "speed": {
-            "lo": 40,
-            "hi": 50
+            "lo": 0,
+            "hi": 10000
         },
         "temperature": {
             "lo": 0,
