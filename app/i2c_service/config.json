@@ -3,7 +3,7 @@
 		"threadname": "i2c-service",
 		"intervaltime":1.0,
 		"loop":false,
-		"debug":true,
+		"debug":false,
 		"iter": 5,
 		"channel": 1,
 		"address":{
