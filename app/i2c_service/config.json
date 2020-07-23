@@ -2,7 +2,7 @@
 	"i2c":{
 		"threadname": "i2c-service",
 		"intervaltime":1.0,
-		"loop":false,
+		"loop":true,
 		"debug":false,
 		"iter": 5,
 		"channel": 1,
