@@ -11,7 +11,6 @@ except Exception:
 class BitController():
 
 	def __init__(self, pinNumber, initialState = 0):
-		GPIO.setup(ledPin, GPIO.OUT) # LED pin set as output
 		self._pinNumber = pinNumber 
 		self._futereState = initialState
 		self._currentState = initialState
@@ -19,7 +18,8 @@ class BitController():
 		self._changeNotified = False
 		self._lock = Lock()
 		self._possibleState = (GPIO.LOW, GPIO.HIGH)
-		GPIO.output(ledPin, self._possibleState[self._futereState])
+		GPIO.setup(self._pinNumber, GPIO.OUT) # pinNumber set as output
+		GPIO.output(pinNumber, self._possibleState[self._futereState])
 
 	def __str__(self):
 		with self.lock:
@@ -53,7 +53,7 @@ class BitController():
 
 	def _apply_change(self):
 		self._currentState = self.futureState
-		GPIO.output(ledPin, self._possibleState[self._futereState])
+		GPIO.output(self._pinNumber, self._possibleState[self._futereState])
 		self._changeNotified = False
 		self._delay = 0
 
