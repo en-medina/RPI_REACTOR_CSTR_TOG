@@ -2,16 +2,16 @@ from threading import Lock
 import logging
 try:
 	import RPi.GPIO as GPIO
+	#GPIO.setmode(GPIO.BCM) # Broadcom pin-numbering scheme
 except Exception:
     logging.critical("RPi.GPIO package not found... creating None variable for testing purpose only...")
     GPIO = None
 
-#GPIO.setmode(GPIO.BCM) # Broadcom pin-numbering scheme
 
 class BitController():
 
 	def __init__(self, pinNumber, initialState = 0):
-		#GPIO.setup(ledPin, GPIO.OUT) # LED pin set as output
+		GPIO.setup(ledPin, GPIO.OUT) # LED pin set as output
 		self._pinNumber = pinNumber 
 		self._futereState = initialState
 		self._currentState = initialState
@@ -19,7 +19,7 @@ class BitController():
 		self._changeNotified = False
 		self._lock = Lock()
 		self._possibleState = (GPIO.LOW, GPIO.HIGH)
-		#GPIO.output(ledPin, self._possibleState[self._futereState])
+		GPIO.output(ledPin, self._possibleState[self._futereState])
 
 	def __str__(self):
 		with self.lock:
@@ -53,7 +53,7 @@ class BitController():
 
 	def _apply_change(self):
 		self._currentState = self.futureState
-		#GPIO.output(ledPin, self._possibleState[self._futereState])
+		GPIO.output(ledPin, self._possibleState[self._futereState])
 		self._changeNotified = False
 		self._delay = 0
 

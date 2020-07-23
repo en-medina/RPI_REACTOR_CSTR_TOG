@@ -5,7 +5,12 @@ from time import sleep
 import logging 
 import random
 from .bit_controller import BitController
-
+try:
+	import RPi.GPIO as GPIO
+	#GPIO.setmode(GPIO.BCM) # Broadcom pin-numbering scheme
+except Exception:
+    logging.critical("RPi.GPIO package not found... creating None variable for testing purpose only...")
+    GPIO = None
 _intervalMeasureTime = float()
 _startLoop = bool()
 _isDebug = bool()
@@ -20,6 +25,10 @@ def init_bit(pipeline):
 	logging.info('Starting BIT Service...')
 
 	global _isDebug, _startLoop, _intervalMeasureTime, _debugIterAmount, _serviceName
+
+	#Check if GPIO library exist, if not, return
+	if GPIO is None:
+		return
 
 	config = helpers.json2dict('config.json', __file__)
 	_intervalMeasureTime = config['bit']['intervaltime']
@@ -68,7 +77,7 @@ def notify_bit_state(pipeline, bitControllerDict):
 				for name, bitController in bitControllerDict.items()
 			}
 		})
-		sleep(0.05)
+		sleep(_intervalMeasureTime)
 
 def update_state_monitor(pipeline, bitControllerDict):
 	'''
@@ -85,7 +94,7 @@ def update_state_monitor(pipeline, bitControllerDict):
 					futureState[key]['state'], 
 					futureState[key]['delay'], 
 					futureState[key]['reverse'])
-		sleep(0.01)
+		sleep(_intervalMeasureTime)
 
 def bit_state_supervisor(bitController):
 	'''
@@ -97,4 +106,4 @@ def bit_state_supervisor(bitController):
 		while bitController.notification:
 			sleep(bitController.delay)
 			bitController.apply_change()
-			sleep(0.01)
+		sleep(_intervalMeasureTime)
