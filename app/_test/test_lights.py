@@ -6,10 +6,10 @@ pins = [33, 31, 29, 32, 13]
 try:
 	for pin in pins:
 		GPIO.setup(pin, GPIO.OUT)
-		GPIO.output(pin, GPIO.HIGH)
+		GPIO.output(pin, GPIO.LOW)
 	sleep(10)
 	for pin in pins:
-		GPIO.output(pin, GPIO.LOW)
+		GPIO.output(pin, GPIO.HIGH)
 except Exception as e:
 	print(e)
 	GPIO.cleanup()
