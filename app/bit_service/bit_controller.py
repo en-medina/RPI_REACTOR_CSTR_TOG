@@ -17,7 +17,7 @@ class BitController():
 		self._delay = 0
 		self._changeNotified = False
 		self._lock = Lock()
-		self._possibleState = (GPIO.HIGH, GPIO.LOW)
+		self._possibleState = (GPIO.LOW, GPIO.HIGH)
 		GPIO.setup(self._pinNumber, GPIO.OUT) # pinNumber set as output
 		GPIO.output(pinNumber, self._possibleState[self._futereState])
 
