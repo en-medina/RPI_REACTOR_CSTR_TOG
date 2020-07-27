@@ -101,22 +101,21 @@ input[type=number]:hover{
 .system-button{
 	margin-top: 1rem;
 }
-.system-button[state="1"] {
-	background-color: #4CAF50; /* Green */	
-}
-.limitator-button[state="1"]{
+.limitator-button[state="0"]{
   background-color: #4CAF50; /* Green */	
-}
-.system-state[state="1"]{
-	background: lawngreen;
-}
-.limitator-button[state="0"] {
-	background-color: firebrick;
 }
 .system-state[state="0"]{
 	background-color: tomato;	
 }
 .system-button[state="0"] {
+	background-color: #4CAF50; /* Green */	
+}
+.system-button[state="1"] {
 	background-color: firebrick;
 }
-.
+.system-state[state="1"]{
+       background: lawngreen;
+}
+.limitator-button[state="1"] {
+       background-color: firebrick;
+}

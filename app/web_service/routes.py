@@ -12,14 +12,17 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
 system_setting = file_manager.FileManager(helpers.abs_path('system_config.json', __file__))
+pipeline = None
 
-def run_flask():
+def run_flask(param):
+	global pipeline
 	logging.info(f'Starting Flask Framework Web Server...')
 
 	app.config.update(dict(
     SECRET_KEY="WEFN ZLWLNDCOZL ASZ",
     WTF_CSRF_SECRET_KEY="HQIUNJOADBINLMFSDLVSX"	
   ))
+	pipeline = param
 	ipaddr = helpers.get_server_ip()
 	socketio.run(app, host = ipaddr, debug = False)
 
@@ -87,6 +90,39 @@ def change_limit_state(message):
 
 @socketio.on('change_system_state')
 def change_system_state(message):
+	global pipeline
 	data = jsonloads(message)
-	state = bool(message['state'])
-	delay = int(message['delay'])
+	delay = int(data['delay'])
+	state = bool(data['state'])
+	pipeData = {
+				'green':{'state':1,'delay':delay, 'reverse':False},
+				'yellow':{'state':0, 'delay': delay, 'reverse':False},
+				'alarm':{'state':0, 'delay': delay, 'reverse':False},
+				'red':{'state':0,'delay':delay, 'reverse':False},
+				'system':{'state':1,'delay':delay, 'reverse':False}
+	}
+	if not state:
+		if delay != 0:
+			pipeData = {
+					'green':{'state':0,'delay':0, 'reverse':False},
+					'yellow':{'state':1, 'delay': delay, 'reverse':True},
+					'alarm':{'state':1, 'delay': delay, 'reverse':True},
+					'red':{'state':1,'delay':delay, 'reverse':False},
+					'system':{'state':0,'delay':delay, 'reverse':False}
+				}
+		else:
+			pipeData = {
+					'green':{'state':0,'delay':0, 'reverse':False},
+					'yellow':{'state':1, 'delay': 0, 'reverse':False},
+					'alarm':{'state':1, 'delay': 0, 'reverse':False},
+					'red':{'state':1, 'delay':0, 'reverse':False},
+					'system':{'state':0, 'delay':0, 'reverse':False}
+				}
+	pipeline['web']['bit'].put(pipeData)
+
+	setting = system_setting.json2dict()
+	setting['delay'] = delay
+	system_setting.dict2json(setting)
+	setting = system_setting.json2dict()
+	response =  jsondumps({"state": int(state)})
+	socketio.emit('update_system_state', response)

@@ -40,7 +40,7 @@ def init_web(pipeline):
 	with concurrent.futures.ThreadPoolExecutor(max_workers=4, thread_name_prefix = _serviceName) as executor:
 
 		futureException = {
-			executor.submit(web_server): 'flask_service',
+			executor.submit(web_server, pipeline): 'flask_service',
 			executor.submit(system_information, internalPipeline): 'system_information',
 			executor.submit(system_monitor, internalPipeline, pipeline, 'monitor'): 'system_monitor',
 			executor.submit(web_emit_system_info, internalPipeline, 'websocket'): 'web_emit_system_info'
@@ -55,8 +55,8 @@ def init_web(pipeline):
 			else:
 				logging.info(f'({_serviceName}) - \'{threadName}\' finish without error and return \'{data}\'')
 
-def web_server():
-	run_flask()
+def web_server(pipeline):
+	run_flask(pipeline)
 
 def system_information(internalPipeline):
 	logging.info(f'Starting System Information Poller...')
@@ -80,21 +80,21 @@ def evaluate_threshold(limit, value, delay, pipeline):
 		if delay != 0:
 			pipeline['web']['bit'].put(
 				{
-					'green':{'state':1,'delay':0, 'reverse':False},
-					'yellow':{'state':0, 'delay': delay, 'reverse':True},
+					'green':{'state':0,'delay':0, 'reverse':False},
+					'yellow':{'state':1, 'delay': delay, 'reverse':True},
 					'alarm':{'state':1, 'delay': delay, 'reverse':True},
-					'red':{'state':0,'delay':delay, 'reverse':False},
-					'system':{'state':1,'delay':delay, 'reverse':False}
+					'red':{'state':1,'delay':delay, 'reverse':False},
+					'system':{'state':0,'delay':delay, 'reverse':False}
 				}
 			)
 		else:
 			pipeline['web']['bit'].put(
 				{
-					'green':{'state':1,'delay':0, 'reverse':False},
-					'yellow':{'state':1, 'delay': 0, 'reverse':False},
+					'green':{'state':0,'delay':0, 'reverse':False},
+					'yellow':{'state':0, 'delay': 0, 'reverse':False},
 					'alarm':{'state':0, 'delay': 0, 'reverse':False},
-					'red':{'state':0, 'delay':0, 'reverse':False},
-					'system':{'state':1, 'delay':0, 'reverse':False}
+					'red':{'state':1, 'delay':0, 'reverse':False},
+					'system':{'state':0, 'delay':0, 'reverse':False}
 				}
 			)
 		return False
@@ -115,11 +115,12 @@ def system_monitor(internalPipeline, pipeline, monitorKey):
 			data = internalPipeline[monitorKey].get()
 			limits = system_setting.json2dict()
 			isInSafeState = True
-			for key, value in data.items():
-				if 'temperature' in key:
-					isInSafeState &= evaluate_threshold(limits['threshold']['temperature'], value[0], limits['delay'], pipeline)
-				elif 'speed' in key:
-					isInSafeState &= evaluate_threshold(limits['threshold']['speed'], value[0], limits['delay'], pipeline)
+			if limits['threshold']['state']:
+				for key, value in data.items():
+					if 'temperature' in key:
+						isInSafeState &= evaluate_threshold(limits['threshold']['temperature'], value[0], limits['delay'], pipeline)
+					elif 'speed' in key:
+						isInSafeState &= evaluate_threshold(limits['threshold']['speed'], value[0], limits['delay'], pipeline)
 
 def web_emit_system_info(internalPipeline, broadcastKey):
 	logging.info(f'Starting Web Socket System Information Module...')
