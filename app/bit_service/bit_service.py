@@ -99,7 +99,7 @@ def update_state_monitor(pipeline, bitControllerDict):
 					futureState[key]['delay'], 
 					futureState[key]['reverse'])
 				if 'alarm' in key:
-					bitController[key].quick_notify(bool(futureState[key]['state']))
+					bitControllerDict[key].quick_notify(bool(futureState[key]['state']))
 
 		sleep(_intervalMeasureTime)
 
