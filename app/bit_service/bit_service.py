@@ -91,6 +91,7 @@ def update_state_monitor(pipeline, bitControllerDict):
 	logging.info(f'Starting update_state_monitor module...')
 	while True:
 		while not pipeline['web']['bit'].empty():
+			logging.info('Catching an state order...')
 			futureState = pipeline['web']['bit'].get()
 			for key in futureState.keys():
 				bitControllerDict[key].notify_change(
