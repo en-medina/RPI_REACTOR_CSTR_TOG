@@ -43,9 +43,9 @@ class BitController():
 	def notify_change(self, futureState, delay = 0, reverse = False):
 		with self._lock:
 			if reverse:
-				self.futureState = futureState
+				self._futereState  = futureState
 				self._apply_change()
-				self.futureState = not futureState
+				self._futereState  = not futureState
 			else:
 				self._futereState = futureState
 			self._changeNotified = True
