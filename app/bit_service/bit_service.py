@@ -44,7 +44,7 @@ def init_bit(pipeline):
 		key: BitController(value, config['bit']['state'][key]) for key, value in config['bit']['pinout'].items()
 	}
 
-	with concurrent.futures.ThreadPoolExecutor(max_workers=3, thread_name_prefix = _serviceName) as executor:
+	with concurrent.futures.ThreadPoolExecutor(max_workers=10, thread_name_prefix = _serviceName) as executor:
 
 		futureException = {
 			executor.submit(
