@@ -22,7 +22,7 @@ class BitController():
 		GPIO.output(pinNumber, self._possibleState[self._futereState])
 
 	def __str__(self):
-		with self.lock:
+		with self._lock:
 			return str(self._pinNumber)
 
 	@property
