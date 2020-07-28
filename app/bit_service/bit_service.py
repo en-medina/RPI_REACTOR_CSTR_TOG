@@ -53,7 +53,8 @@ def init_bit(pipeline):
 		}
 		futureException.update({
 			executor.submit(update_state_monitor, pipeline, bitControllerDict):'update_state_monitor',
-			executor.submit(notify_bit_state, pipeline, bitControllerDict):'notify_bit_state'
+			executor.submit(notify_bit_state, pipeline, bitControllerDict):'notify_bit_state',
+			executor.submit(bit_buzzer_supervisor, bitControllerDict['alarm']):'alarm_buzzer_state'
 			})
 
 		for futureErrors in concurrent.futures.as_completed(futureException):
@@ -96,6 +97,9 @@ def update_state_monitor(pipeline, bitControllerDict):
 					futureState[key]['state'], 
 					futureState[key]['delay'], 
 					futureState[key]['reverse'])
+				if 'alarm' in key:
+					bitController[key].quick_notify(bool(futureState[key]['state']))
+
 		sleep(_intervalMeasureTime)
 
 def bit_state_supervisor(bitController):
@@ -109,3 +113,18 @@ def bit_state_supervisor(bitController):
 			sleep(bitController.delay)
 			bitController.apply_change()
 		sleep(_intervalMeasureTime)
+
+def bit_buzzer_supervisor(bitController):
+	'''
+	function loop for change a signle IO bit output devices
+	:params BitController bitController:  bit controller class
+	'''	
+	logging.info(f'Starting Buzzer module controller at pin{bitController}...')
+	while True:
+		while bitController.currentState and bitController.notification:
+			bitController.quick_change(0)
+			sleep(0.0005)
+			bitController.quick_change(1)
+			sleep(0.0005)
+		sleep(_intervalMeasureTime)
+

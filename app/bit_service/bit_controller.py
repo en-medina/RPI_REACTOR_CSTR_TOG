@@ -60,3 +60,11 @@ class BitController():
 	def apply_change(self):
 		with self._lock:
 			self._apply_change()
+
+	def quick_change(self, state):
+		with self._lock:
+			GPIO.output(self._pinNumber, self._possibleState[state])
+
+	def quick_notify(self, state):
+		with self._lock:
+			self._changeNotified = state
