@@ -14,11 +14,11 @@
 			"alarm":13
 		},
 		"state":{
-			"green":0,
-			"yellow":1,
+			"green":1,
+			"yellow":0,
 			"alarm":0,
-			"red":1,
-			"system":0
+			"red":0,
+			"system":1
 		}
 	}
 }
