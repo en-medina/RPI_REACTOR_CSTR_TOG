@@ -53,6 +53,7 @@ if __name__ == "__main__":
     pipeline['dist']['bus'] = pipeline['dist']['dist']
     pipeline['bus']['web'] = pipeline['web']['web']
     pipeline['web']['bit'] = pipeline['bit']['bit']
+    pipeline['bit']['web'] = pipeline['web']['web']
     #pipeline['web']['bus'] = pipeline['bus']['bus']
     #pipeline['bus']['web'] = pipeline['web']['web']
 
