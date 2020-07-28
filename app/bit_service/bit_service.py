@@ -124,8 +124,8 @@ def bit_buzzer_supervisor(bitController):
 	while True:
 		while bitController.currentState and bitController.notification:
 			bitController.quick_change(0)
-			sleep(0.0004)
+			sleep(0.0025)
 			bitController.quick_change(1)
-			sleep(0.004)
+			sleep(0.0025)
 		sleep(_intervalMeasureTime)
 
