@@ -1,6 +1,6 @@
 #!../env/bin/python3
 import logging
-logging.basicConfig(level=logging.INFO,
+logging.basicConfig(level=logging.ERROR,
             #format= '[%(levelname)s] [%(asctime)s] p%(process)s {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
             format='[%(levelname)s] (%(threadName)-10s) %(message)s')
 try:
@@ -19,7 +19,7 @@ from web_service import init_web
 from bus_service import init_bus
 from bit_service import init_bit
 
-from shared_module.helpers import json2dict
+from shared_module.helpers import json2dict, get_server_ip
 from shared_module.rotatequeue import RotateQueue
 
 def get_device_names():
@@ -61,7 +61,8 @@ if __name__ == "__main__":
         logging.info("Changing GPIO to BOARD MODE")
         GPIO.setmode(GPIO.BOARD) # BOARD pin-numbering scheme
         GPIO.setwarnings(False)
-    logging.info('Starting REACTOR CSTR - TOG Application Services...')
+    serverIP = get_server_ip()
+    logging.critical(f'Starting REACTOR CSTR - TOG Application Services at {serverIP}...')
 
     logging.info(f'showing sensor names list{get_device_names()}')
     with concurrent.futures.ThreadPoolExecutor(max_workers=5, thread_name_prefix = 'app-service') as executor:
