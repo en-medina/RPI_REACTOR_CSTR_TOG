@@ -113,8 +113,8 @@ def change_system_state(message):
 		else:
 			pipeData = {
 					'green':{'state':0,'delay':0, 'reverse':False},
-					'yellow':{'state':1, 'delay': 0, 'reverse':False},
-					'alarm':{'state':1, 'delay': 0, 'reverse':False},
+					'yellow':{'state':0, 'delay': 0, 'reverse':False},
+					'alarm':{'state':0, 'delay': 0, 'reverse':False},
 					'red':{'state':1, 'delay':0, 'reverse':False},
 					'system':{'state':0, 'delay':0, 'reverse':False}
 				}
