@@ -52,7 +52,7 @@ class BitController():
 			self._delay = delay
 
 	def _apply_change(self):
-		self._currentState = self.futureState
+		self._currentState = self._futereState
 		GPIO.output(self._pinNumber, self._possibleState[self._futereState])
 		self._changeNotified = False
 		self._delay = 0
