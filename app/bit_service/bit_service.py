@@ -51,8 +51,10 @@ def init_bit(pipeline):
 				bit_state_supervisor, bitController
 				): key + '_bit_state_supervisor' for key, bitController in bitControllerDict.items()
 		}
-		futureException['update_state_monitor'] = executor.submit(update_state_monitor, pipeline, bitControllerDict)
-		futureException['notify_bit_state'] = executor.submit(notify_bit_state, pipeline, bitControllerDict)
+		futureException.update({
+			executor.submit(update_state_monitor, pipeline, bitControllerDict):'update_state_monitor',
+			executor.submit(notify_bit_state, pipeline, bitControllerDict):'notify_bit_state'
+			})
 
 		for futureErrors in concurrent.futures.as_completed(futureException):
 			threadName = futureException[futureErrors]
