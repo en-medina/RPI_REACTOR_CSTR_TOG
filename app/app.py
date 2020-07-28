@@ -1,6 +1,6 @@
 #!../env/bin/python3
 import logging
-logging.basicConfig(level=logging.ERROR,
+logging.basicConfig(level=logging.INFO,
             #format= '[%(levelname)s] [%(asctime)s] p%(process)s {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
             format='[%(levelname)s] (%(threadName)-10s) %(message)s')
 try:
@@ -62,7 +62,7 @@ if __name__ == "__main__":
         GPIO.setmode(GPIO.BOARD) # BOARD pin-numbering scheme
         GPIO.setwarnings(False)
     serverIP = get_server_ip()
-    logging.critical(f'Starting REACTOR CSTR - TOG Application Services at {serverIP}...')
+    logging.info(f'Starting REACTOR CSTR - TOG Application Services at {serverIP}...')
 
     logging.info(f'showing sensor names list{get_device_names()}')
     with concurrent.futures.ThreadPoolExecutor(max_workers=5, thread_name_prefix = 'app-service') as executor:
