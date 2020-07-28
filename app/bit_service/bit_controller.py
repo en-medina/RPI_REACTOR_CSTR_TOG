@@ -32,12 +32,12 @@ class BitController():
 
 	@property
 	def currentState(self):
-		with self.lock:
+		with self._lock:
 			return self._currentState
 
 	@property
 	def delay(self):
-		with self.lock:
+		with self._lock:
 			return self._delay
 		
 	def notify_change(self, futureState, delay = 0, reverse = False):
