@@ -14,17 +14,17 @@
 	<form class="form-field"  action="" method="post" id="parameters_form">
 	{{ form.hidden_tag() }}
 	<fieldset>
-		<legend>Limites del sistema</legend>
+		<legend>Límites del sistema</legend>
 		<div class="form-table">
 			<label>Rango de temperatura [<sup>o</sup>C]:</label>
 			<div class="form-row">
 				<div class="form-col">
 					<input type="number" id="lo-temperature" name="{{form.loTemp.name}}" placeholder="lim. actual = {{setting['threshold']['temperature']['lo']}}">			
-					<label class="input-label">Limite inferior</label>
+					<label class="input-label">Límite inferior</label>
 				</div>
 				<div class="form-col">
 					<input type="number" id="hi-temperature" name="{{form.hiTemp.name}}" placeholder="lim. actual = {{setting['threshold']['temperature']['hi']}}">		
-					<label class="input-label">Limite superior</label>	
+					<label class="input-label">Límite superior</label>	
 				</div>
 			</div>
 		</div>
@@ -34,11 +34,11 @@
 			<div class="form-row">
 				<div class="form-col">
 					<input type="number" id="lo-agitator" name="{{form.loSpeed.name}}" placeholder="lim. actual = {{setting['threshold']['speed']['lo']}}">			
-					<label class="input-label">Limite inferior</label>
+					<label class="input-label">Límite inferior</label>
 				</div>
 				<div class="form-col">
 					<input type="number" id="hi-agitator" name="{{form.hiSpeed.name}}"  placeholder="lim. actual = {{setting['threshold']['speed']['hi']}}">		
-					<label class="input-label">Limite superior</label>	
+					<label class="input-label">Límite superior</label>	
 				</div>
 			</div>
 		</div>
