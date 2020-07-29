@@ -14,10 +14,10 @@ document.addEventListener("DOMContentLoaded", function(){
 		let updateLimitState = JSON.parse(message);
 		limitatorButton.setAttribute('state', updateLimitState['state'].toString());
 		if(updateLimitState['state']){
-			limitatorButton.innerHTML = 'Desactivar Limitador';
+			limitatorButton.innerHTML = 'Desactivar limitador';
 		}
 		else{
-		  limitatorButton.innerHTML = 'Activar Limitador';	
+		  limitatorButton.innerHTML = 'Activar limitador';	
 		}		
 	});
 
@@ -32,11 +32,11 @@ document.addEventListener("DOMContentLoaded", function(){
 		systemButton.setAttribute('state', updateSystemState['state'].toString());
 		systemState.setAttribute('state', updateSystemState['state'].toString());
 		if(updateSystemState['state']){
-			systemButton.innerHTML = 'Apagar Sistema';
+			systemButton.innerHTML = 'Apagar sistema';
 			systemState.innerHTML = 'Encendido';
 		}
 		else{
-		  systemButton.innerHTML = 'Encender Sistema';	
+		  systemButton.innerHTML = 'Encender sistema';	
 			systemState.innerHTML = 'Apagado';
 		}
 	});
