@@ -102,22 +102,13 @@ def change_system_state(message):
 				'system':{'state':1,'delay':delay, 'reverse':False}
 	}
 	if not state:
-		if delay != 0:
-			pipeData = {
-					'green':{'state':0,'delay':0, 'reverse':False},
-					'yellow':{'state':1, 'delay': delay, 'reverse':True},
-					'alarm':{'state':1, 'delay': delay, 'reverse':True},
-					'red':{'state':1,'delay':delay, 'reverse':False},
-					'system':{'state':0,'delay':delay, 'reverse':False}
-				}
-		else:
-			pipeData = {
-					'green':{'state':0,'delay':0, 'reverse':False},
-					'yellow':{'state':0, 'delay': 0, 'reverse':False},
-					'alarm':{'state':0, 'delay': 0, 'reverse':False},
-					'red':{'state':1, 'delay':0, 'reverse':False},
-					'system':{'state':0, 'delay':0, 'reverse':False}
-				}
+		pipeData = {
+				'green':{'state':0,'delay':0, 'reverse':False},
+				'yellow':{'state':0, 'delay': delay, 'reverse':False},
+				'alarm':{'state':0, 'delay': delay, 'reverse':False},
+				'red':{'state':1, 'delay':delay, 'reverse':False},
+				'system':{'state':0, 'delay':delay, 'reverse':False}
+			}
 	pipeline['web']['bit'].put(pipeData)
 
 	setting = system_setting.json2dict()
