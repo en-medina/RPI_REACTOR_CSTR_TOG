@@ -19,11 +19,11 @@
 			<label>Rango de temperatura [<sup>o</sup>C]:</label>
 			<div class="form-row">
 				<div class="form-col">
-					<input type="number" id="lo-temperature" name="{{form.loTemp.name}}" placeholder="lim. actual = {{setting['threshold']['temperature']['lo']}}">			
+					<input type="number" id="lo-temperature" name="{{form.loTemp.name}}" placeholder="lim. actual = {{setting['threshold']['temperature']['lo']}}" value ="{{setting['threshold']['temperature']['lo']}}">			
 					<label class="input-label">Límite inferior</label>
 				</div>
 				<div class="form-col">
-					<input type="number" id="hi-temperature" name="{{form.hiTemp.name}}" placeholder="lim. actual = {{setting['threshold']['temperature']['hi']}}">		
+					<input type="number" id="hi-temperature" name="{{form.hiTemp.name}}" placeholder="lim. actual = {{setting['threshold']['temperature']['hi']}}" value="{{setting['threshold']['temperature']['hi']}}">		
 					<label class="input-label">Límite superior</label>	
 				</div>
 			</div>
@@ -33,11 +33,11 @@
 			<label>Rango de velocidad de agitador:</label>
 			<div class="form-row">
 				<div class="form-col">
-					<input type="number" id="lo-agitator" name="{{form.loSpeed.name}}" placeholder="lim. actual = {{setting['threshold']['speed']['lo']}}">			
+					<input type="number" id="lo-agitator" name="{{form.loSpeed.name}}" placeholder="lim. actual = {{setting['threshold']['speed']['lo']}}" value="{{setting['threshold']['speed']['lo']}}">			
 					<label class="input-label">Límite inferior</label>
 				</div>
 				<div class="form-col">
-					<input type="number" id="hi-agitator" name="{{form.hiSpeed.name}}"  placeholder="lim. actual = {{setting['threshold']['speed']['hi']}}">		
+					<input type="number" id="hi-agitator" name="{{form.hiSpeed.name}}"  placeholder="lim. actual = {{setting['threshold']['speed']['hi']}}" value="{{setting['threshold']['speed']['hi']}}">		
 					<label class="input-label">Límite superior</label>	
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 			<div class="form-row">
 				<div class="form-col"></div>
 				<div class="form-col">
-					<input type="number" id="delay" name="{{form.delay.name}}" min="0" placeholder="tiempo = {{setting['threshold']['delay']}}">
+					<input type="number" id="delay" name="{{form.delay.name}}" min="0" placeholder="tiempo = {{setting['threshold']['delay']}}" value="{{setting['threshold']['delay']}}">
 					<label class="input-label">Tiempo de apagado</label>
 				</div>
 			</div>
