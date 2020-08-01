@@ -76,7 +76,7 @@ def notify_bit_state(pipeline, bitControllerDict):
 	while True:
 		pipeline['bit']['web'].put({
 			'state':{
-				name: bitController.state
+				name: bitController.currentState
 				for name, bitController in bitControllerDict.items()
 			}
 		})
