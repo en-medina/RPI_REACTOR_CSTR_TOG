@@ -3,12 +3,13 @@
         "state": 0,
         "speed": {
             "lo": 0,
-            "hi": 10000
+            "hi": 200
         },
         "temperature": {
             "lo": 0,
-            "hi": 90
-        }
+            "hi": 100
+        },
+        "delay": 3
     },
     "delay": 0
 }

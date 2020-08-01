@@ -51,6 +51,7 @@ def configuration():
 		setting['threshold']['speed']['hi'] = form.hiSpeed.data
 		setting['threshold']['temperature']['lo'] = form.loTemp.data
 		setting['threshold']['temperature']['hi'] = form.hiTemp.data
+		setting['threshold']['delay'] = form.delay.data
 		system_setting.dict2json(setting)
 		setting = system_setting.json2dict()
 	return render_template('configuration.html', ipaddr = ipaddr, port = port, setting = setting, form=form)

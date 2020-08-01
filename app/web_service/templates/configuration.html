@@ -42,7 +42,16 @@
 				</div>
 			</div>
 		</div>
-
+		<div class="form-table">
+			<label>Tiempo de apagado:</label>
+			<div class="form-row">
+				<div class="form-col"></div>
+				<div class="form-col">
+					<input type="number" id="delay" name="{{form.delay.name}}" min="0" placeholder="tiempo = {{setting['threshold']['delay']}}">
+					<label class="input-label">Tiempo de apagado</label>
+				</div>
+			</div>
+		</div>
 		<button type="button" class="limitator-button" id="limitator-button" state="{{setting['threshold']['state']}}">
 			{% if setting['threshold']['state'] %}
 				Desactivar Limitador

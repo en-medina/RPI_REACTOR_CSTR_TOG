@@ -7,12 +7,13 @@ class LimitForm(FlaskForm):
 	loTemp = IntegerField('lo_temperature')
 	hiSpeed = IntegerField('hi_speed')
 	loSpeed = IntegerField('lo_speed')
+	delay = IntegerField('delay')
 
 	def validate(self):
 		if not Form.validate(self):
 			return False
 		return (self.loTemp.data < self.hiTemp.data and 
-			self.loSpeed.data < self.hiSpeed.data)
+			self.loSpeed.data < self.hiSpeed.data) and self.delay.data >= 0
 
 class GraphForm(FlaskForm):
 	beginDate = DateField('begin_date')
