@@ -119,8 +119,8 @@ def system_monitor(internalPipeline, pipeline, monitorKey):
 				for key, value in data.items():
 					if 'temperature' in key:
 						isInSafeState &= evaluate_threshold(limits['threshold']['temperature'], value[0], limits['threshold']['delay'], pipeline)
-					elif 'speed' in key:
-						isInSafeState &= evaluate_threshold(limits['threshold']['speed'], value[0], limits['threshold']['delay'], pipeline)
+					# elif 'speed' in key:
+					# 	isInSafeState &= evaluate_threshold(limits['threshold']['speed'], value[0], limits['threshold']['delay'], pipeline)
 
 def web_emit_system_info(internalPipeline, broadcastKey):
 	logging.info(f'Starting Web Socket System Information Module...')

@@ -29,7 +29,7 @@
 			</div>
 		</div>
 
-		<div class="form-table">
+		<div class="form-table"  style="visibility: hidden">
 			<label>Rango de velocidad de agitador:</label>
 			<div class="form-row">
 				<div class="form-col">
@@ -54,12 +54,12 @@
 		</div>
 		<button type="button" class="limitator-button" id="limitator-button" state="{{setting['threshold']['state']}}">
 			{% if setting['threshold']['state'] %}
-				Desactivar Limitador
+				Desactivar limitador
 			{% else %}
-				Activar Limitador
+				Activar limitador
 			{% endif %}
 		</button>
-		<button form="parameters_form" class="submmit-param-button" id="submmit-config">Actualizar Parámetros</button>
+		<button form="parameters_form" class="submmit-param-button" id="submmit-config">Actualizar parámetros</button>
 	</fieldset>
 	</form>
 
