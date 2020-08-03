@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 from time import sleep
 GPIO.setmode(GPIO.BOARD) # BOARD pin-numbering scheme
 GPIO.setwarnings(False)
-delay = int(input('Hola muchachos, entren el tiempo de oscilación en milisegundos [ms]'))
+delay = float(input('Hola muchachos, entren el tiempo de oscilación en milisegundos [ms]: '))
 delay = delay / 1000.0
 pin = 13
 GPIO.setup(pin, GPIO.OUT)
