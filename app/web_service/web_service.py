@@ -44,7 +44,7 @@ def init_web(pipeline):
 			executor.submit(system_information, internalPipeline): 'system_information',
 			executor.submit(system_monitor, internalPipeline, pipeline, 'monitor'): 'system_monitor',
 			executor.submit(web_emit_system_info, internalPipeline, 'websocket'): 'web_emit_system_info',
-			executor.submit(web_emit_system_state, pipeline): 'web_emit_system_state',
+			executor.submit(web_emit_system_state, pipeline): 'web_emit_system_state'
 		}
 
 		for futureErrors in concurrent.futures.as_completed(futureException):
@@ -145,6 +145,7 @@ def web_emit_system_state(pipeline):
 		icnt += 1
 		sleep(_intervalMeasureTime)
 		while not pipeline['bit']['web'].empty():
+			logging.info('Receiving data from bit_service...')
 			data = pipeline['bit']['web'].get()
 			response =  jsondumps({"state": int(data['state']['system'])})
 			socketio.emit('update_system_state', response)
