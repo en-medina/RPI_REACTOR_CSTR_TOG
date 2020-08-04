@@ -144,6 +144,7 @@ def web_emit_system_state(pipeline):
 	while True and (not _isDebug or icnt <= _debugIterAmount):
 		icnt += 1
 		sleep(_intervalMeasureTime)
+		logging.info('web_emit_system_state is here')
 		while not pipeline['bit']['web'].empty():
 			logging.info('Receiving data from bit_service...')
 			data = pipeline['bit']['web'].get()
