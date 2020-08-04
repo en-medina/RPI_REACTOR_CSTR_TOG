@@ -65,6 +65,7 @@ def graph():
 	endTime = datetime.now()
 	beginTime = endTime - timedelta(seconds=3600*2)
 	interval = 900
+	tableName = ''
 
 	if form.validate_on_submit():
 		beginTime = datetime.combine(form.beginDate.data, form.beginTime.data)
@@ -80,7 +81,7 @@ def graph():
 		'endDate': endTime.strftime('%Y-%m-%d'),
 		'endTime': endTime.strftime('%H:%M')
 	}
-	return render_template('graph.html', graphData=jsondumps(graphData), form=form, date=current, interval=interval)
+	return render_template('graph.html', graphData=jsondumps(graphData), form=form, date=current, interval=interval, tableName=tableName)
 
 @socketio.on('change_limit_state')
 def change_limit_state(message):
