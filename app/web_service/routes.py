@@ -121,4 +121,4 @@ def change_system_state(message):
 	system_setting.dict2json(setting)
 	setting = system_setting.json2dict()
 	response =  jsondumps({"state": int(state)})
-	socketio.emit('update_system_state', response)
+	#socketio.emit('update_system_state', response)
