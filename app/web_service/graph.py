@@ -13,7 +13,8 @@ def generate_graph(tableName, beginDate, endDate, interval=60):
 			"reactor_temperature":"Temperatura en el Reactor",
 			"reactive2_flow":"Caudal Reactivo 2",
 			"reactive1_flow":"Caudal Reactivo 1",
-			"agitator_speed": "Velocidad Agitador"
+			"agitator_speed": "Velocidad Agitador",
+			"adc": "adc"
 		}
 	graph = {
 		'title':names[tableName],
