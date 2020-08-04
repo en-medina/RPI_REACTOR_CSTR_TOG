@@ -1,13 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import Form, IntegerField, DateField, TimeField, validators, SelectField
+from wtforms import Form, IntegerField, DateField, TimeField, validators, SelectField, FloatField
 import shared_module.database as database
 
 class LimitForm(FlaskForm):
-	hiTemp = IntegerField('hi_temperature')
-	loTemp = IntegerField('lo_temperature')
-	hiSpeed = IntegerField('hi_speed', validators=(validators.Optional(),))
-	loSpeed = IntegerField('lo_speed', validators=(validators.Optional(),))
-	delay = IntegerField('delay')
+	hiTemp = FloatField('hi_temperature')
+	loTemp = FloatField('lo_temperature')
+	hiSpeed = FloatField('hi_speed', validators=(validators.Optional(),))
+	loSpeed = FloatField('lo_speed', validators=(validators.Optional(),))
+	delay = FloatField('delay')
 
 	def validate(self):
 		if not Form.validate(self):

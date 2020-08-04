@@ -96,7 +96,7 @@ def change_limit_state(message):
 def change_system_state(message):
 	global pipeline
 	data = jsonloads(message)
-	delay = int(data['delay'])
+	delay = float(data['delay'])
 	state = bool(data['state'])
 	pipeData = {
 				'green':{'state':1,'delay':delay, 'reverse':False},
