@@ -81,7 +81,7 @@ def notify_bit_state(pipeline, bitControllerDict):
 			}
 		}
 		logging.info(f'Send {data} to web_service...')
-		pipeline['bit']['web'].put()
+		pipeline['bit']['web'].put(data)
 		sleep(_intervalMeasureTime)
 
 def update_state_monitor(pipeline, bitControllerDict):
