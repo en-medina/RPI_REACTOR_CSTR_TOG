@@ -74,12 +74,14 @@ def notify_bit_state(pipeline, bitControllerDict):
 	'''	
 	logging.info(f'Starting notify_bit_state module...')
 	while True:
-		pipeline['bit']['web'].put({
+		data = {
 			'state':{
 				name: bitController.currentState
 				for name, bitController in bitControllerDict.items()
 			}
-		})
+		}
+		logging.info(f'Send {data} to web_service...')
+		pipeline['bit']['web'].put()
 		sleep(_intervalMeasureTime)
 
 def update_state_monitor(pipeline, bitControllerDict):
