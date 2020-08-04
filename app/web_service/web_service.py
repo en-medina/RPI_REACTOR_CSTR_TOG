@@ -37,7 +37,7 @@ def init_web(pipeline):
 		'monitor': Queue()
 	}
 
-	with concurrent.futures.ThreadPoolExecutor(max_workers=4, thread_name_prefix = _serviceName) as executor:
+	with concurrent.futures.ThreadPoolExecutor(max_workers=5, thread_name_prefix = _serviceName) as executor:
 
 		futureException = {
 			executor.submit(web_server, pipeline): 'flask_service',
@@ -141,10 +141,9 @@ def web_emit_system_info(internalPipeline, broadcastKey):
 def web_emit_system_state(pipeline):
 	logging.info(f'Starting Web Socket System State Module...')
 	icnt = 0
-	while True:# and (not _isDebug or icnt <= _debugIterAmount):
+	while True and (not _isDebug or icnt <= _debugIterAmount):
 		icnt += 1
 		sleep(_intervalMeasureTime)
-		logging.info('web_emit_system_state is here')
 		while not pipeline['bit']['web'].empty():
 			logging.info('Receiving data from bit_service...')
 			data = pipeline['bit']['web'].get()
