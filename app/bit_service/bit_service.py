@@ -93,6 +93,11 @@ def update_state_monitor(pipeline, bitControllerDict):
 		while not pipeline['web']['bit'].empty():
 			logging.info('Catching an state order...')
 			futureState = pipeline['web']['bit'].get()
+
+			#Avoid concurrent calls if system state is 0
+			if bitControllerDict['system'].currentState == 0 and futureState['system']['state'] == 0:
+				continue
+
 			for key in futureState.keys():
 				bitControllerDict[key].notify_change(
 					futureState[key]['state'], 
@@ -120,7 +125,7 @@ def bit_buzzer_supervisor(bitController):
 	function loop for change a signle IO bit output devices
 	:params BitController bitController:  bit controller class
 	'''	
-	logging.info(f'Starting Buzzer module controller at pin{bitController}...')
+	logging.info(f'Starting Buzzer module controller at pin {bitController}...')
 	while True:
 		while bitController.currentState and bitController.notification:
 			bitController.quick_change(0)
