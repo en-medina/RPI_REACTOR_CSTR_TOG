@@ -5,11 +5,22 @@ from functools import reduce
 
 def generate_graph(tableName, beginDate, endDate, interval=60):
 	db = database.SQLITE()
+	names = {
+			"reactive1_volume":"Volumen Tanque 1",
+			"reactive2_volume":"Volumen Tanque 2",
+			"reactive1_temperature":"Temperatura Reactivo 1",
+			"reactive2_temperature":"Temperatura Reactivo 2",
+			"reactor_temperature":"Temperatura en el Reactor",
+			"reactive2_flow":"Caudal Reactivo 2",
+			"reactive1_flow":"Caudal Reactivo 1",
+			"agitator_speed": "Velocidad Agitador"
+		}
 	graph = {
-		'title':tableName.replace('_',' '),
+		'title':names[tableName],
 		'data':list(),
 		'labels':list()
 	}
+
 	iterDate = beginDate
 	increment = timedelta(seconds=interval)
 	while iterDate < endDate:
