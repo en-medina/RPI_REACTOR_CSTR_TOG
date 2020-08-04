@@ -141,7 +141,7 @@ def web_emit_system_info(internalPipeline, broadcastKey):
 def web_emit_system_state(pipeline):
 	logging.info(f'Starting Web Socket System State Module...')
 	icnt = 0
-	while True and (not _isDebug or icnt <= _debugIterAmount):
+	while True:# and (not _isDebug or icnt <= _debugIterAmount):
 		icnt += 1
 		sleep(_intervalMeasureTime)
 		logging.info('web_emit_system_state is here')
