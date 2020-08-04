@@ -36,7 +36,7 @@
 			<label>Eliga el intervalo:</label>
 			<select name="{{form.intervalList.name}}" >
 				{%for line in form.intervalList.choices%}
-					<option value={{line[0]}} {% if line[0]==900 %} selected {% endif %}>{{line[1]}}</option>
+					<option value={{line[0]}} {% if line[0]==interval %} selected {% endif %}>{{line[1]}}</option>
 				{%endfor%}
 			</select>			
 		</div>

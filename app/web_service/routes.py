@@ -60,8 +60,12 @@ def configuration():
 def graph():
 	form = GraphForm()
 	form.update_choices()
-	#graphData = {"data":[1,2,1,1,5,3,0,7],"labels":[1,2,3,4,5,6,7,8],"title":"my Line"} 
+
 	graphData = {"data":[0],"labels":[0],"title":"Seleccione una gráfica"}  
+	endTime = datetime.now()
+	beginTime = endTime - timedelta(seconds=3600*2)
+	interval = 900
+
 	if form.validate_on_submit():
 		beginTime = datetime.combine(form.beginDate.data, form.beginTime.data)
 		endTime = datetime.combine(form.endDate.data, form.endTime.data)
@@ -70,14 +74,13 @@ def graph():
 		graphData = generate_graph(tableName, beginTime, endTime, interval)
 		pass
 	
-	current_time = datetime.now()
 	current={
-		'beginDate': (current_time - timedelta(seconds=3600*2)).strftime('%Y-%m-%d'),
-		'beginTime':(current_time - timedelta(seconds=3600*2)).strftime('%H:%M'),
-		'endDate': current_time.strftime('%Y-%m-%d'),
-		'endTime': current_time.strftime('%H:%M')
+		'beginDate': beginTime.strftime('%Y-%m-%d'),
+		'beginTime':beginTime.strftime('%H:%M'),
+		'endDate': endTime.strftime('%Y-%m-%d'),
+		'endTime': endTime.strftime('%H:%M')
 	}
-	return render_template('graph.html', graphData=jsondumps(graphData), form=form, date=current)
+	return render_template('graph.html', graphData=jsondumps(graphData), form=form, date=current, interval=interval)
 
 @socketio.on('change_limit_state')
 def change_limit_state(message):
