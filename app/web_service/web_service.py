@@ -145,7 +145,6 @@ def web_emit_system_state(pipeline):
 		icnt += 1
 		sleep(_intervalMeasureTime)
 		while not pipeline['bit']['web'].empty():
-			logging.info('Receiving data from bit_service...')
 			data = pipeline['bit']['web'].get()
 			response =  jsondumps({"state": int(data['state']['system'])})
 			socketio.emit('update_system_state', response)
