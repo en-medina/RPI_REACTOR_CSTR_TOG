@@ -13,7 +13,13 @@ _serviceDB = None
 
 
 def init_bus(pipeline, deviceNames):
-	
+	'''
+	function for initialize and run BUS module and sensors
+	:param queue pipeline: queue class for pushing data
+	:param list(string) deviceNames: list of sensor devices.
+	'''
+
+	#initialize global variables
 	logging.info('Starting BUS service...')
 
 	global _isDebug, _startLoop, _intervalMeasureTime, _debugIterAmount, _serviceName, _serviceDB
@@ -27,7 +33,7 @@ def init_bus(pipeline, deviceNames):
 	if _isDebug:
 		logging.warning(f'({_serviceName}) - internal debug is enable...')
 
-	
+	#initialize SQLite database by creating a table for each devices	
 	logging.info(f'({_serviceName}) - starting Database...')
 
 	Names = list()
@@ -37,6 +43,7 @@ def init_bus(pipeline, deviceNames):
 	deviceNames = Names
 	logging.info(_serviceDB.get_table_name())
 
+	#Start the Poller
 	with concurrent.futures.ThreadPoolExecutor(max_workers=3, thread_name_prefix = _serviceName) as executor:
 		futureException = {
 			executor.submit(push_data, _queue): 
@@ -58,6 +65,10 @@ def init_bus(pipeline, deviceNames):
 			logging.info(f'({_serviceName}) - \'{threadName}\' retriving data from {name} and have {data}')
 
 def push_data(_queue):
+	'''
+	function retrieving sensors data and insert it in the database
+	:param queue _queue: queue class for pushing data
+	'''
 	if _isDebug:
 		_debug_push_data(_queue)
 	else:
@@ -69,6 +80,10 @@ def push_data(_queue):
 				sleep(_intervalMeasureTime)
 
 def _debug_push_data(_queue):
+	'''
+	debug mode of function push_data
+	:param queue _queue: queue class for pushing data
+	'''
 	for _ in range(_debugIterAmount):
 		while not _queue.empty():
 			data = _queue.get()

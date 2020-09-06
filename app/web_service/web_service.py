@@ -23,6 +23,12 @@ _serviceName = str()
 
 
 def init_web(pipeline):
+	'''
+	This function is in charge of initialize, running and coordinate all the threads related to web server interaction.
+
+	:param dict(dict(RotateQueue)) pipeline: communication pipeline hierarchy 
+	'''
+
 	logging.info('Starting WEB service...')
 
 	global _isDebug, _startLoop, _intervalMeasureTime, _debugIterAmount, _serviceName
@@ -57,9 +63,20 @@ def init_web(pipeline):
 				logging.info(f'({_serviceName}) - \'{threadName}\' finish without error and return \'{data}\'')
 
 def web_server(pipeline):
+	'''
+	This function is for starting flask server.
+
+	:param dict(dict(RotateQueue)) pipeline: communication pipeline hierarchy 
+	'''
 	run_flask(pipeline)
 
 def system_information(internalPipeline):
+	'''
+	This function is for collecting data from the database and push it to internal web server pipeline.
+
+	:param dict(RotateQueue) internalPipeline: internal communication pipeline hierarchy 
+	'''
+
 	logging.info(f'Starting System Information Poller...')
 	db = database.SQLITE()
 	icnt = 0
@@ -77,6 +94,16 @@ def system_information(internalPipeline):
 				internalPipeline[key].put(data)
 
 def evaluate_threshold(limit, value, delay, pipeline):
+	'''
+	This function is evaluating the threshold parameters with the sensors current value.
+
+	:param dict(float) limit: threshold value
+	:param float value: sensor current value
+	:param float delay: delay of the next state change
+	:param dict(dict(RotateQueue)) pipeline: communication pipeline hierarchy
+
+	:return bool: return true if value is under the defined bound or instead return false.
+	'''
 	if not limit['lo'] <= value <= limit['hi']:
 		if delay != 0:
 			pipeline['web']['bit'].put(
@@ -103,6 +130,14 @@ def evaluate_threshold(limit, value, delay, pipeline):
 
 
 def system_monitor(internalPipeline, pipeline, monitorKey):
+	'''
+	This function is for monitor the value of each sensor in order to take action if break the defined bound limits.
+
+	:param dict(RotateQueue) internalPipeline: internal communication pipeline hierarchy 
+	:param dict(dict(RotateQueue)) pipeline: communication pipeline hierarchy
+	:param string monitorKey: internal monitor key to access the internal pipeline
+	'''
+
 	logging.info(f'Starting System Threshold Monitor...')
 	system_setting = file_manager.FileManager(helpers.abs_path('system_config.json', __file__))
 	icnt = 0
@@ -124,6 +159,12 @@ def system_monitor(internalPipeline, pipeline, monitorKey):
 					# 	isInSafeState &= evaluate_threshold(limits['threshold']['speed'], value[0], limits['threshold']['delay'], pipeline)
 
 def web_emit_system_info(internalPipeline, broadcastKey):
+	'''
+	This function is for pushing current value of each sensor to the user using websocket
+
+	:param dict(RotateQueue) internalPipeline: internal communication pipeline hierarchy 
+	:param string broadcastKey: internal broadcast key to access the internal pipeline
+	'''
 	logging.info(f'Starting Web Socket System Information Module...')
 	icnt = 0
 	while True  and (not _isDebug or icnt <= _debugIterAmount):
@@ -139,6 +180,11 @@ def web_emit_system_info(internalPipeline, broadcastKey):
 
 
 def web_emit_system_state(pipeline):
+	'''
+	This function is for pushing current system state of the system to the user
+
+	:param dict(dict(RotateQueue)) pipeline: communication pipeline hierarchy
+	'''
 	logging.info(f'Starting Web Socket System State Module...')
 	icnt = 0
 	while True and (not _isDebug or icnt <= _debugIterAmount):
