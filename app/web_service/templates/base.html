@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>REACTOR CSTR - TOG</title>
+		<meta charset="utf-8">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One" rel="stylesheet" type="text/css">
+		<link href="/static/css/base.css" rel="stylesheet" type="text/css">
+		{% block head %}{% endblock %}
+	</head>
+
+	<body>
+		<div class="content-wrapper">
+			<header>
+				<h1>REACTOR CSTR - TOG</h1>
+			</header>
+			<nav>
+				<ul>
+					<li><a href="/index">Inicio</a></li>
+					<li><a href="/graph">Gráficas</a></li>
+					<li><a href="/configuration">Configuración</a></li>
+					<li><a href="/about_us">Acerca de</a></li>
+				</ul>
+			</nav>
+			<div class="main">	
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+		<footer>
+			<p>Build by Enmanuel Medina. All rights reversed.</p>
+		</footer>		
+	</body>
+</html>

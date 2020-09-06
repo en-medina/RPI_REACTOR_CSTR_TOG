@@ -1,0 +1,27 @@
+.item-wrapper > div {
+    box-sizing: border-box;
+    margin:2px;
+    border-radius: 5px;
+    background-color: rgb(207,232,220);
+    padding: 1em;
+}
+.item-wrapper {
+    box-sizing: border-box;
+    margin:1px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); ;
+    grid-template-rows: 100px 100px;
+    grid-gap: 10px;
+
+}
+.box{
+  font-size: 2rem;
+  text-align: center;
+  font-family: 'Open Sans Condensed', sans-serif;
+  border-style: solid;
+}
+sup {
+  font-size: small;
+}
+
+

@@ -1,0 +1,121 @@
+.form-field{
+	display: flex;
+	align-items:center;
+	flex-direction:column;
+	margin-bottom: 3rem;
+}
+fieldset{
+	display:flex;
+	flex-direction:column;
+	justify-content: center;
+	width:80%;
+}
+@media(min-width: 550px){
+	fieldset{
+		width: 500px;
+	}
+}
+
+legend{
+  font-family: 'Sonsie One';
+  font-size: 1.5rem;
+}
+
+
+.form-table{
+	display:flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 1.5rem;
+}
+
+.form-row{
+	display:flex;
+	flex-direction:row;
+}
+.form-row>* {
+  flex: 1 1 10px;
+  margin: 10px;
+}
+.form-col{
+	display:flex;
+	flex-direction:column;
+}
+.input-label{
+	font-size: 0.9rem;
+}
+
+button{
+	border: none;
+  color: white;
+	margin: 5px;
+	padding: 15px;
+	border-radius: 20px;
+	cursor: pointer;
+	opacity: 0.6;
+  transition: 0.3s;
+}
+button:hover{
+	opacity: 1;
+}
+
+
+input[type=number]{
+	background-color:  #f1f1f1;
+	border: none;
+	font-size:2rem;
+	-webkit-appearance: none;
+	-moz-appearance: textfield;
+	border-radius: 2px;
+	opacity: 0.8;
+	transition: 0.3s;
+}
+input[type=number]:hover{
+  opacity: 1;	
+  border-opacity: 0.5;
+  border: 1px solid #555;
+}
+ input[type=number]:focus{
+ 	opacity: 1;
+ 	  border-opacity: 0.3;
+  border: 1px solid #555;
+ }
+.submmit-param-button{
+	  background-color: skyblue;
+}
+.system-state{
+	font-size: 1.5rem;		
+	margin:12px;
+	margin-top:3px;
+}
+.system-state > span{
+	padding:4px;
+	padding-right: 16px;
+	padding-left: 16px;
+	border-radius: 20px;
+}
+.system-label{
+	font-size: 1.5rem;
+	margin-right: 1rem;
+}
+.system-button{
+	margin-top: 1rem;
+}
+.limitator-button[state="0"]{
+  background-color: #4CAF50; /* Green */	
+}
+.system-state[state="0"]{
+	background-color: tomato;	
+}
+.system-button[state="0"] {
+	background-color: #4CAF50; /* Green */	
+}
+.system-button[state="1"] {
+	background-color: firebrick;
+}
+.system-state[state="1"]{
+       background: lawngreen;
+}
+.limitator-button[state="1"] {
+       background-color: firebrick;
+}

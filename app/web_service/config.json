@@ -1,0 +1,9 @@
+{
+	"web":{
+		"threadname": "web-service",
+		"intervaltime":0.5,
+		"loop":false,
+		"debug":false,
+		"iter": 5
+	}
+}

@@ -1,0 +1,44 @@
+
+<h2> Parámetros de seguridad del sistema</h2>
+<form>
+<fieldset>
+	<legend>Limites del sistema</legend>
+	<label>Rango de temperatura:</label>
+		<div>
+			<div>
+				<input type="number" id="lo-temperature">			
+				<label>Limite inferior</label>
+			</div>
+			<div>
+				<input type="number" id="hi-temperature">		
+				<label>Limite superior</label>	
+			</div>
+		</div>
+	<label>Rango de velocidad de agitador:</label>
+		<div>
+			<div>
+				<input type="number" id="lo-agitator">			
+				<label>Limite inferior</label>
+			</div>
+			<div>
+				<input type="number" id="hi-agitator">		
+				<label>Limite superior</label>	
+			</div>
+		</div>
+	<button id="limitator-button">Activar Limitador</button>
+	<button id="submmit-config">Actualizar Parametros</button>
+</fieldset>
+</form>
+
+<fieldset>
+	<legend>Comandos de sistema</legend>
+	<div id="system-state">
+		Estado del sistema:Encendido/Apagado
+	</div>
+	<div>
+		<label>Temporizar apagado/encendido:</label>
+		<input type="number" id="state-timer" name="state-timer" min="0" max="120">		
+	</div>
+	<button>Apagar/Encender Sistema</button>
+</fieldset>
+

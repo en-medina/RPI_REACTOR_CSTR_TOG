@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link href="/static/css/graph.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/static/js/chart.js@2.8.0.js"></script>
+<script type="text/javascript" src="/static/js/graph.js" data='{{graphData}}'></script>
+{% endblock %}
+
+{% block content%}
+		{% if form.errors %}
+			<div>{{ form.errors }}</div>
+		{% endif %}
+
+<main>
+	<form class="form-field" action="/graph" method="post" id="graph_form">
+		{{ form.hidden_tag() }}
+		<div>
+			<label>Elige un sensor:</label>
+			<select name="{{form.sensorList.name}}" >
+				{%for line in form.sensorList.choices%}
+					<option value="{{line[0]}}" {% if line[0]==tableName %} selected {% endif %}>{{line[1]}}</option>
+				{%endfor%}
+			</select>			
+		</div>
+		<div>
+			<label for="appt">Fecha de inicio:</label>
+			<input type="date" id="appt1" name="{{form.beginDate.name}}" value="{{date['beginDate']}}" >
+			<input type="time" id="appt2" name="{{form.beginTime.name}}" value="{{date['beginTime']}}" >			
+		</div>
+		<div>
+			<label for="appt">Fecha de fin:</label>
+			<input type="date" id="appt3" name="{{form.endDate.name}}" value="{{date['endDate']}}" >
+			<input type="time" id="appt4" name="{{form.endTime.name}}" value="{{date['endTime']}}" >						
+		</div>
+		<div>
+			<label>Eliga el intervalo:</label>
+			<select name="{{form.intervalList.name}}" >
+				{%for line in form.intervalList.choices%}
+					<option value={{line[0]}} {% if line[0]==interval %} selected {% endif %}>{{line[1]}}</option>
+				{%endfor%}
+			</select>			
+		</div>
+		<div>
+			<button type ="submit" form="graph_form" id="submmit-graph">Generar gráfica</button>
+			<button type="button" id="csv-button">Descargar datos</button>
+		</div>
+	</form>
+
+	<canvas id="out_graphics" width="300" height="300"></canvas>
+</main>
+{% endblock %}
