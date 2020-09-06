@@ -59,39 +59,39 @@ First install python 3.8 by following the [Linuxize tutorial](https://linuxize.c
 Then, download all necessary dependences and the project repository.
 
 ```sh
-sudo apt-get update 
-sudo apt-get install i2c-tools
-git clone https://github.com/en-medina/RPI_REACTOR_CSTR_TOG
-cd RPI_REACTOR_CSTR_TOG
+$ sudo apt-get update 
+$ sudo apt-get install i2c-tools
+$ git clone https://github.com/en-medina/RPI_REACTOR_CSTR_TOG
+$ cd RPI_REACTOR_CSTR_TOG
 ```
 For preparing the python environment, create a virtual environment and install all dependences. 
 ```sh
-python3.8 -m venv env
-env/bin/pip install -r requirements.txt 
+$ python3.8 -m venv env
+$ env/bin/pip install -r requirements.txt 
 ```
 As there are multiple MLX90614 sensors, it is necessary to change change its I2C address because by default all sensors comes with the 0x5a I2C address. For performing this task use the i2c-tools commands. Below is an example of how we change the address of those devices (for more reference see the [i2c config file](app/i2c_service/config.json)). 
 ```sh
 #Find your I2C bus in your linux with the command i2cdetect -l 
 #(in my case is the i2c-1)
-i2cdetect -l
+$ i2cdetect -l
 i2c-1   i2c             bcm2835 I2C adapter                     I2C adapter
 
 #Write the word 0x0000 to the address 0x2E and append the PEC check byte.
-i2cset -y 1 0x5a 0x2E 0x0000 wp 
+$ i2cset -y 1 0x5a 0x2E 0x0000 wp 
 
 #Write the new address as a word, to the address 0x2E and append the PEC 
 #check byte. In my case the new address is 0x005c
-i2cset -y 1 0x5a 0x2E 0x005c wp
+$ i2cset -y 1 0x5a 0x2E 0x005c wp
 
 #Perform a power cycle of the MLX90614 device
 #Check the new address with the command i2cdetect -y 1
-i2cdetect -y 1
+$ i2cdetect -y 1
 ```
 Before running the application consider to see the [i2c config file](app/i2c_service/config.json), [bit config file](app/bit_service/config.json) and [dist config file](app/dist_service/config.json) in order to map all sensors and actuator pin connector and/or address. 
 
 Finally for running the application run the following command:
 ```sh
-env/bin/python app.py
+$ env/bin/python app.py
 ```
 Take in note that app.py use relative path to access its internal file, so we need to execute the script at its current directory location. 
 
