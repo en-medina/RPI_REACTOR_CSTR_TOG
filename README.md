@@ -97,7 +97,7 @@ Take in note that app.py use relative path to access its internal file, so we ne
 
 ## Team
 
-This project was made by [Enmanuel Medina](https://www.linkedin.com/in/enmedina3/), [Otoniel Lara](www.linkedin.com/in/otoniells), [Taimi Pérez](https://www.linkedin.com/in/taimipt/) and [Gerald Castillo](https://www.linkedin.com/in/gerald-castillo-726613166/).
+This project was made by [Enmanuel Medina](https://www.linkedin.com/in/enmedina3/), [Otoniel Lara](https://www.linkedin.com/in/otoniells), [Taimi Pérez](https://www.linkedin.com/in/taimipt/) and [Gerald Castillo](https://www.linkedin.com/in/gerald-castillo-726613166/).
 
 Here is the final result:
 ![project](images/final.jpg)
