@@ -13,15 +13,15 @@ The operator requirement for secure and monitor the system are:
 - plot all systems physical parameters. 
 
 Below is shown the physical parameters that need to be measure in the system:
-[diagram](images/diagram.png)
+![diagram](images/diagram.png)
 
-Q1 = reactive 1 flow
-Q2 = reactive 2 flow
-T1 = reactive 1 temperature
-T2 = reactive 2 temperature
-T3 = reactor temperature
-V1 = reactive 1 volume
-V2 = reactive 2 volume
+- Q1 = reactive 1 flow
+- Q2 = reactive 2 flow
+- T1 = reactive 1 temperature
+- T2 = reactive 2 temperature
+- T3 = reactor temperature
+- V1 = reactive 1 volume
+- V2 = reactive 2 volume
 
 ## Electronics connection
 
@@ -34,13 +34,13 @@ For measure those physical variable we use the following sensors:
 
 Below is shown the electronic diagram of those component connected to the Raspberry. 
 
-[circuit](images/circuit.jpg)
+![circuit](images/circuit.jpg)
 
 ## Software design
 
 For performing the measure of each sensor and in the same time handle the request of the local web server hosted in the Raspberry, we decide to design a multi-threaded backend environment in python 3.8. Below is shown the high level design of the application.
 
-[image](images/high_level.jpg)
+![image](images/high_level.jpg)
 
 Take in note that connections between threads are made by a thread-safe queue implementation. 
 
@@ -100,5 +100,5 @@ Take in note that app.py use relative path to access its internal file, so we ne
 This project was made by [Enmanuel Medina](https://www.linkedin.com/in/enmedina3/), [Otoniel Lara](www.linkedin.com/in/otoniells), [Taimi Pérez](https://www.linkedin.com/in/taimipt/) and [Gerald Castillo](https://www.linkedin.com/in/gerald-castillo-726613166/).
 
 Here is the final result:
-[project](images/final.jpg)
-[project](images/display_view.jpg)
+![project](images/final.jpg)
+![project](images/display_view.jpg)
