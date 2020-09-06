@@ -1,72 +1,121 @@
-#adc.py
-#gy906.py
+
 import logging
 from time import sleep
 import threading
+import shared_module.singleton as singleton
 
+#Try the importation of the SMBus Module
+#if the module does not find in the interpreter
+#launch a log message and intialize a None variable
+#with the module name
 try:
-    import shared_module.singleton as singleton
+	import smbus
 except Exception:
-    import importlib.util
-
-    spec = importlib.util.spec_from_file_location("Singleton", "../shared_module/singleton.py")
-    singleton = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(singleton)
-
-try:
-    import smbus
-except Exception:
-    logging.critical("smbus package not found...  creating None variable for testing purpose only...")
-    smbus = None
+	logging.critical("smbus package not found...  creating None variable for testing purpose only...")
+	smbus = None
 
 
 class I2CIface(metaclass=singleton.Singleton):
-    __internalLock = threading.Lock()
+	__internalLock = threading.Lock()
 
-    def __init__(self, channel=1):
-        self.bus = smbus.SMBus(channel)
-        self._internalDelay = 0.001
+	def __init__(self, channel=1):
+		"""
+		This class contain the library for interfacing with the I2C protocol message. Also, handle the communication from multiple threads with any I2C device connected to this single I2C channel on the system. 
 
-    def action(self, data):
-        with self.__internalLock:
-            sleep(self._internalDelay)
-            ans = ''
-            ans = [str(i) for i in range(data * 1, data * 10, data)]
+		:param int channel: the channel where is located the I2C port, take in note that have a default value of 1.
+		"""
 
-    def read_byte(self, address, register = None):
-        with self.__internalLock:
-            sleep(self._internalDelay)
-            self.bus.read_byte_data(address, register)
-        pass
+		#Initiliaze the variables
+		self.bus = smbus.SMBus(channel)
+		self._internalDelay = 0.001
 
-    def write_byte(self, address, msg, register = None):
-        with self.__internalLock:
-            sleep(self._internalDelay)
-            self.bus.write_byte_data(address, register, msg)
-        pass
+	def read_byte(self, address, register = None):
+		"""
+		Read a byte from register of device located at the indicated address.
+		
+		:param int address: i2c address of the device.
+		:param int register: space location that holds the data. the default value is None.
 
-    def write_word_data(self, address, msg, register):
-        with self.__internalLock:
-            sleep(self._internalDelay)
-            self.bus.write_word_data(address, register, msg)
-        pass
+		:return int: bytes read from the device
+		"""
+		with self.__internalLock:
+			sleep(self._internalDelay)
+			return self.bus.read_byte_data(address, register)
+		pass
 
-    def read_word_data(self, address, register):
-        with self.__internalLock:
-            sleep(self._internalDelay)
-            return self.bus.read_word_data(address, register)
-        pass
+	def write_byte(self, address, msg, register = None):
+		"""
+		write a byte to register of device located at the indicated address.
+		
+		:param int address: i2c address of the device.
+		:param int msg: message that will be write in the device.
+		:param int register: space location that holds the data. the default value is None.
 
-    def write_i2c_block_data(self, address, buff, register):
-        #buffer is a list
-        with self.__internalLock:
-            sleep(self._internalDelay)
-            self.bus.write_i2c_block_data(address, register, buff)
+		:return None:
+		"""
 
-    def read_i2c_block_data(self, address,  register, block=2):
-        with self.__internalLock:
-            sleep(self._internalDelay)
-            return self.bus.read_i2c_block_data(address, register, block)
+		with self.__internalLock:
+			sleep(self._internalDelay)
+			self.bus.write_byte_data(address, register, msg)
+		pass
 
+	def write_word_data(self, address, msg, register):
+		"""
+		write a word to register of device located at the indicated address.
+		
+		:param int address: i2c address of the device.
+		:param int msg: message that will be written in the device.
+		:param int register: space location that holds the data. the default value is None.
 
+		:return None:
+		"""
+
+		with self.__internalLock:
+			sleep(self._internalDelay)
+			self.bus.write_word_data(address, register, msg)
+		pass
+
+	def read_word_data(self, address, register):
+		"""
+		read a word from register of device located at the indicated address.
+		
+		:param int address: i2c address of the device.
+		:param int register: space location that holds the data. the default value is None.
+
+		:return int: word read from the device
+		"""
+
+		with self.__internalLock:
+			sleep(self._internalDelay)
+			return self.bus.read_word_data(address, register)
+		pass
+
+	def write_i2c_block_data(self, address, buff, register):
+		"""
+		write a word to register of device located at the indicated address.
+		
+		:param int address: i2c address of the device.
+		:param list(int) buffer: a list of values that will be written in the device.
+		:param int register: space location that holds the data. the default value is None.
+
+		:return None:
+		"""
+		#buffer is a list
+		with self.__internalLock:
+			sleep(self._internalDelay)
+			self.bus.write_i2c_block_data(address, register, buff)
+
+	def read_i2c_block_data(self, address,  register, block=2):
+		"""
+		read a word from register of device located at the indicated address.
+		
+		:param int address: i2c address of the device.
+		:param int register: space location that holds the data. the default value is None.
+
+		:return int: word read from the device
+		"""
+
+		with self.__internalLock:
+			sleep(self._internalDelay)
+			return self.bus.read_i2c_block_data(address, register, block)
 

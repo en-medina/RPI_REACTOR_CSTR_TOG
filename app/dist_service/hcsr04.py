@@ -9,6 +9,13 @@ except Exception:
 class HCSR04():
 
 	def __init__(self, GPIO_ECHO, GPIO_TRIGGER):
+		"""
+		This class contain the library for interfacing with the HCSR04 module. 
+
+		:param int GPIO_ECHO: echo pin of the HCSR04
+		:pram int GPIO_TRIGGER: trigger pin of the HCSR04
+		"""
+		
 		#GPIO Mode (BOARD / BCM) this setmode is apply in global config
 		#GPIO.setmode(GPIO.BCM)
 
@@ -16,16 +23,26 @@ class HCSR04():
 		self.GPIO_TRIGGER = GPIO_TRIGGER
 		self.GPIO_ECHO = GPIO_ECHO
 		self.timeout = time.time()
+
 		#set GPIO direction (IN / OUT)
 		GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
 		GPIO.setup(GPIO_ECHO, GPIO.IN)
 
 	def is_timed_out(self, value):
+		"""
+		check if value timeout
+		param time value: the current value to evaluate
+
+		:return bool: return true if value overpass the current time out or instead return false.
+		"""
 		return value > self.timeout
 
 	def distance(self):
-		# set Trigger to HIGH
+		"""
+		Get the distance from the sensor. Take in note that this function have an built-in bounce prevention system for HCSR04 signal loss produced by the OS kernel process. 
 
+		:return float: distance value.
+		"""
 		StartTime = time.time()
 		StopTime = time.time()
 

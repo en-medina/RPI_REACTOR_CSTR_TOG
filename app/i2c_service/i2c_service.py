@@ -1,7 +1,6 @@
 import threading
 import concurrent.futures
 from .i2c import I2CIface
-#from .Ghelpers import json2dict, str2hex
 import shared_module.helpers as helpers
 from .mlx90614 import MLX90614
 from time import sleep
@@ -19,13 +18,14 @@ _serviceName = str()
 
 def init_i2c(pipeline):
 	'''
-	function for initialize and run I2C module and sensors
-	:param queue pipeline: queue class for pushing data
+	This function is in charge of initialize, running and coordinate all the threads that handle all sensors that requires the I2C channel to comunicate with the system. 
+
+	:param dict(dict(RotateQueue)) pipeline: communication pipeline hierarchy 
 	'''
 	logging.info('Starting I2C Service...')
 
+	#Initialize the internal global variables
 	global _isDebug, _startLoop, _intervalMeasureTime, _debugIterAmount, _serviceName 
-
 	config = helpers.json2dict('config.json', __file__)
 	_intervalMeasureTime = config['i2c']['intervaltime']
 	_startLoop = config['i2c']['loop']
@@ -33,9 +33,11 @@ def init_i2c(pipeline):
 	_debugIterAmount = config['i2c']['iter']
 	_serviceName = config['i2c']['threadname']
 
+	#Inform if this service is executing in debug mode.
 	if _isDebug:
 		logging.warning(f'({_serviceName}) - internal debug is enable...')
 
+	#Initialize all I2C sensors parameters that are not ADC.
 	temp_params = [
 		{
 			'name': name, 
@@ -46,6 +48,7 @@ def init_i2c(pipeline):
 		for name, addr in config['i2c']['address'].items() if 'adc' not in name
 	]
 
+	#Initialize ADC sensor parameters.
 	adc_params = {
 			'name': 'adc-service',
 			'addr': config['i2c']['address']['adc'],
@@ -54,13 +57,16 @@ def init_i2c(pipeline):
 			'channel': config['i2c']['channel']
 	}
 
+	#Start the concurrent calls for running create the thread workers
 	with concurrent.futures.ThreadPoolExecutor(max_workers=4, thread_name_prefix = _serviceName) as executor:
 
+		#Initialize workers and save it in the futureException handler dict
 		futureException = {
 			executor.submit(mlx90614_loop, data): data['name'] for data in temp_params
 		}
 		futureException[executor.submit(adc1115_loop, adc_params)] = adc_params['name']
 
+		#Monitor any worker state and notify if any changes arrive
 		for futureErrors in concurrent.futures.as_completed(futureException):
 			threadName = futureException[futureErrors]
 			try:

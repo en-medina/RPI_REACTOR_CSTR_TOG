@@ -25,6 +25,8 @@
 CircuitPython driver for 1115 ADCs.
 * Author(s): Carter Nelson
 """
+#The original version of this library was written by adafruit Team
+#Please find below it's github's repository
 #https://github.com/adafruit/Adafruit_CircuitPython_ADS1x15/blob/master/adafruit_ads1x15/ads1x15.py
 
 import struct
@@ -47,8 +49,9 @@ class AnalogIn:
 
     def __init__(self, ads, positive_pin,  name='', slope=1,offset=0, negative_pin=None,):
         """AnalogIn
-        :param ads: The ads object.
+        :param I2CIface ads: The ads object.
         :param ~digitalio.DigitalInOut positive_pin: Required pin for single-ended.
+        :param string name: the name of the sensor.
         :param ~string name: Name of the Sensor.
         :param ~digitalio.DigitalInOut negative_pin: Optional pin for differential reads.
         """
@@ -248,6 +251,8 @@ class ADS1x15:
 
     def _write_register(self, reg, value):
         """Write 16 bit value to register."""
+        #Re-implement the way the library communicate with the I2C module
+        #by using the I2CIface module
         self.buf[0] = reg
         self.buf[1] = (value >> 8) & 0xFF
         self.buf[2] = value & 0xFF
@@ -269,6 +274,9 @@ class ADS1x15:
         #         i2c.readinto(self.buf, end=2)
         #     else:
         #         i2c.write_then_readinto(bytearray([reg]), self.buf, in_end=2)
+
+        #Re-implement the way the library communicate with the I2C module
+        #by using the I2CIface module
         self.i2c_device.write_i2c_block_data(self.address, [reg], reg)
         ans = self.i2c_device.read_i2c_block_data(self.address, reg)
         self.buf[0] = ans[0]

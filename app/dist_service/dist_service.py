@@ -3,9 +3,8 @@ import concurrent.futures
 import shared_module.helpers as helpers
 from time import sleep
 import logging 
-import random
-
 import random 
+
 _intervalMeasureTime = float()
 _startLoop = bool()
 _isDebug = bool()
